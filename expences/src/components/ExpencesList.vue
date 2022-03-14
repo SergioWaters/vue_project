@@ -14,7 +14,10 @@
         <h1>Value</h1>
       </li>
     </ul>
-    <ul v-for="expence in expencesArr" :key="expence.id">
+    <ul
+      v-for="expence in expencesArr"
+      :key="(expence.id = expencesArr.indexOf(expence))"
+    >
       <li>{{ expence.id + 1 }}</li>
       <li>{{ expence.date }}</li>
       <li>{{ expence.category }}</li>
@@ -27,7 +30,6 @@
 export default {
   name: "ExpencesList",
   props: {
-    msg: String,
     expencesArr: [],
   },
 };
@@ -49,5 +51,9 @@ ul {
 }
 li {
   margin: 0 10px;
+  width: 200px;
+}
+li:first-child {
+  width: 30px;
 }
 </style>
