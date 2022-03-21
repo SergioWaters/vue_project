@@ -1,26 +1,36 @@
 <template>
   <div id="app">
-    <ExpencesList :expencesArr="this.expencesArr" />
+    <ExpencesList :expencesArr="this.getExpencesArr" />
     <ExpenceAdd @addNewExpence="addNewExpence" />
+    <ExpencesPagination
+      @getlistToView="getListToView"
+      :lists="this.getNumberOfButtons"
+    />
   </div>
 </template>
 
 <script>
 import ExpencesList from "./components/ExpencesList.vue";
 import ExpenceAdd from "./components/ExpenceAdd.vue";
+import ExpencesPagination from "./components/ExpencesPagination.vue";
 
 export default {
   name: "App",
   components: {
     ExpencesList,
     ExpenceAdd,
+    ExpencesPagination,
   },
   data() {
     return {
       expencesArr: [],
+      expencesToShow: 1,
     };
   },
   methods: {
+    getListToView(listNumber) {
+      console.log(listNumber);
+    },
     addNewExpence(expence) {
       this.expencesArr.unshift(expence);
     },
@@ -41,11 +51,62 @@ export default {
           category: "Food",
           value: 532,
         },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
+        {
+          date: "2020-03-24",
+          category: "Food",
+          value: 532,
+        },
       ];
     },
   },
   created() {
     this.expencesArr = this.fetchData();
+  },
+  computed: {
+    getExpencesArr() {
+      return this.expencesArr.slice(
+        this.expencesToShow - 1,
+        this.expencesToShow * 5
+      );
+    },
+    getNumberOfButtons() {
+      return this.expencesArr.length;
+    },
   },
 };
 </script>
