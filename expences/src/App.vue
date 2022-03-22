@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <ExpencesList :expencesArr="this.getExpencesArr" />
-    <ExpenceAdd @addNewExpence="addNewExpence" />
     <ExpencesPagination
-      @getlistToView="getListToView"
-      :lists="this.getNumberOfButtons"
+      @clickHandler="changePage"
+      :pages="expencesArr.length"
+      :focus="focusPage"
+      :stack="stackOfPages"
     />
+    <ExpenceAdd @addNewExpence="addNewExpence" />
   </div>
 </template>
 
@@ -24,12 +26,13 @@ export default {
   data() {
     return {
       expencesArr: [],
-      expencesToShow: 1,
+      stackOfPages: 5,
+      focusPage: 1,
     };
   },
   methods: {
-    getListToView(listNumber) {
-      console.log(listNumber);
+    changePage(n) {
+      this.focusPage = n;
     },
     addNewExpence(expence) {
       this.expencesArr.unshift(expence);
@@ -100,12 +103,9 @@ export default {
   computed: {
     getExpencesArr() {
       return this.expencesArr.slice(
-        this.expencesToShow - 1,
-        this.expencesToShow * 5
+        this.stackOfPages * (this.focusPage - 1),
+        this.stackOfPages * (this.focusPage - 1) + this.stackOfPages
       );
-    },
-    getNumberOfButtons() {
-      return this.expencesArr.length;
     },
   },
 };

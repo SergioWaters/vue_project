@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="add">
     <button @click="formVisible = !formVisible">add spending +</button>
     <div v-show="formVisible">
       <h3 v-if="isVisibleAlert">All of thoose lines should be filled</h3>
@@ -48,5 +48,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.add {
+  margin: 10px;
+}
 </style>

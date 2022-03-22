@@ -1,26 +1,31 @@
 <template>
   <div>
-    <button v-for="n in lists" :key="n" @click="getlistToView(n)">
+    <button @click="clickHandler(focus - 1)">-</button>
+    <button v-for="n in numberOfButtons" :key="n" @click="clickHandler(n)">
       {{ n }}
     </button>
+    <button @click="clickHandler(focus + 1)">+</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "ExpencesPagination",
-  data() {
-    return {
-      listToView: 0,
-    };
+  props: {
+    pages: Number,
+    focus: Number,
+    stack: Number,
   },
   methods: {
-    getListToView(n) {
-      this.$emit("getListToView", n);
+    clickHandler(n) {
+      if (n < 1 || n > this.numberOfButtons) return;
+      this.$emit("clickHandler", n);
     },
   },
-  props: {
-    lists: Number,
+  computed: {
+    numberOfButtons() {
+      return Math.ceil(this.pages / this.stack);
+    },
   },
 };
 </script>

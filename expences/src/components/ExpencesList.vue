@@ -37,6 +37,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.expences {
+  min-height: 300px;
+}
 h3 {
   margin: 40px 0 0 0;
   text-align: center;
