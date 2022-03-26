@@ -2,16 +2,16 @@
   <div class="expences">
     <ul>
       <li>
-        <h1>#</h1>
+        <h3>#</h3>
       </li>
       <li>
-        <h1>Date</h1>
+        <h3>Date</h3>
       </li>
       <li>
-        <h1>Category</h1>
+        <h3>Category</h3>
       </li>
       <li>
-        <h1>Value</h1>
+        <h3>Value</h3>
       </li>
     </ul>
     <ul
