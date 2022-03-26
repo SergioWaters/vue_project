@@ -18,6 +18,18 @@ export default {
     },
     getFocusPage(state) {
       return state.focusPage
+    },
+    getCategoryArr(state) {
+      let categoryArr = state.expencesArr.reduce((acc, expence) => {
+        if (acc.map[expence.category]) return acc;
+        acc.map[expence.category] = true;
+        acc.categoryArr.push(expence.category);
+        return acc;
+      }, {
+        map: {},
+        categoryArr: []
+      }).categoryArr;
+      return categoryArr
     }
   },
   mutations: {
