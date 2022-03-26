@@ -42,7 +42,7 @@ export default {
     updateStackOfPages(state, stackOfPages) {
       state.stackOfPages = stackOfPages
     },
-    addNewExpence(state, expence) {
+    updNewExpence(state, expence) {
       state.expencesArr.unshift(expence);
     },
   },

@@ -21,13 +21,14 @@
           v-model="customCategory"
         />
       </div>
-      <button @click="addNewExpence">save</button>
+      <button @click="addExpence">save</button>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   name: "ExpenceAdd",
@@ -42,7 +43,8 @@ export default {
     };
   },
   methods: {
-    addNewExpence() {
+    ...mapMutations(["updNewExpence"]),
+    addExpence() {
       this.alertVisible = false;
       if (!this.category) this.category = this.customCategory;
       if (!this.category || !this.value) return (this.alertVisible = true);
@@ -52,7 +54,7 @@ export default {
         date: this.date || this.getCurrentDate,
         value: +this.value,
       };
-      this.$emit("addNewExpence", expence);
+      this.updNewExpence(expence);
     },
   },
   computed: {
