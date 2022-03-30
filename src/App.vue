@@ -1,62 +1,66 @@
 <template>
   <div id="app">
-    <h1>Tag your Payments</h1>
-    <ExpencesList :expencesArr="getExpencesSlice" />
-    <ExpencesPagination
-      @clickHandler="updateFocusPage"
-      :pages="getAllExpences.length"
-      :focus="getFocusPage"
-      :stack="getStackOfPages"
-    />
-    <ExpenceAdd @addNewExpence="addNewExpence" />
+    <nav><router-link to="/">Home</router-link> |</nav>
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
-<script>
-// import { mapState } from "vuex";
-import { mapMutations } from "vuex";
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
 
-import ExpencesList from "./components/ExpencesList.vue";
-import ExpenceAdd from "./components/ExpenceAdd.vue";
-import ExpencesPagination from "./components/ExpencesPagination.vue";
+<script>
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
-  components: {
-    ExpencesList,
-    ExpenceAdd,
-    ExpencesPagination,
-  },
+  // data() {
+  //   return {
+  //     commonExpences: [
+  //       {date: ,
+  //       category: ,
+  //       value:
+  //       }
+  //     ]
+  //   }
+  // },
   methods: {
     ...mapActions(["fetchData"]),
-    ...mapMutations([
-      "updateExpences",
-      "updateFocusPage",
-      "updateStackOfPages",
-      "addNewExpence",
-    ]),
+
+    //   goToPageAbout(){
+    //     this.$router.push({
+    //       name: "about",
+    //       params: {
+    //         isTrial: 0
+    //       },
+    //       query: {
+    //         isTrial: true
+    //       }
+    //     })
+    //   }
   },
+  created() {},
   mounted() {
     this.fetchData();
   },
-  computed: mapGetters([
-    "getAllExpences",
-    "getExpencesSlice",
-    "getStackOfPages",
-    "getFocusPage",
-  ]),
 };
 </script>
 
-<style>
+<style lang="css">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+nav {
+  padding: 30px;
+}
+a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+a .router-link-exact-active {
+  color: #42b983;
 }
 </style>

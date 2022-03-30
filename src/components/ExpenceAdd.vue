@@ -34,7 +34,7 @@ export default {
   name: "ExpenceAdd",
   data() {
     return {
-      formVisible: false,
+      formVisible: true,
       alertVisible: false,
       date: "",
       category: "",
@@ -68,6 +68,19 @@ export default {
       else return `${y}-${"0" + m}-${d}`;
     },
   },
+  mounted() {
+    // if (!this.getCategoryArr.length) {
+    // await this.$store.dispatch("getCategoryArr");
+    console.log(this.$route.params.category);
+    console.log(this.$route.query.value);
+    console.log(this.$route);
+
+    if (this.$route.query.category)
+      this.customCategory = this.$route.query.category;
+    else this.category = this.getCategoryArr[0];
+    if (this.$route.query.value) this.value = +this.$route.query.value;
+  },
+  // },
 };
 </script>
 
