@@ -79,8 +79,15 @@ export default {
       this.customCategory = this.$route.query.category;
     else this.category = this.getCategoryArr[0];
     if (this.$route.query.value) this.value = +this.$route.query.value;
+    else this.alertVisible = true;
+
+    if (this.$route.query.category && this.$route.query.value) {
+      this.addExpence();
+      this.$router.push({
+        name: "home",
+      });
+    }
   },
-  // },
 };
 </script>
 

@@ -21,10 +21,10 @@
       <router-link
         :to="{
           path: '/addExpence/',
-          query: { value: 3000, category: 'Useless' },
+          query: { category: 'Useless' },
         }"
       >
-        Add 3000 for Useless category
+        Add something to Useless category
       </router-link>
     </div>
 

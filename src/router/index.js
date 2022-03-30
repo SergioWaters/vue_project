@@ -1,4 +1,3 @@
-import addExpence from '@/store/modules/expences'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
@@ -22,7 +21,7 @@ const routes = [
   },
   {
     path: '/addExpence',
-    name: addExpence,
+    name: 'addExpence',
     component: ExpenceAdd,
   }
 ]
