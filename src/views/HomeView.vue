@@ -1,29 +1,13 @@
 <template>
   <div>
+    <input type="number" placeholder="Put amount" v-model="amount" />
     <div class="common_expences">
       <router-link
-        :to="{
-          path: '/addExpence/',
-          query: { value: 5000, category: 'Entertainment' },
-        }"
+        v-for="category in this.getCategoryArr"
+        :key="category"
+        :to="`/addExpence/${amount}?category=${category}`"
       >
-        Add 5000 for Entertainment category
-      </router-link>
-      <router-link
-        :to="{
-          path: '/addExpence/1000',
-          query: { category: 'Sports' },
-        }"
-      >
-        Add 1000 for Sports category
-      </router-link>
-      <router-link
-        :to="{
-          path: '/addExpence/7000',
-          query: { category: 'Useless' },
-        }"
-      >
-        Add something to Useless category
+        {{ amount }} for {{ category }}
       </router-link>
     </div>
     <ExpencesList :expencesArr="getExpencesSlice" />
@@ -49,6 +33,11 @@ export default {
     ExpencesList,
     ExpencesPagination,
   },
+  data() {
+    return {
+      amount: 0,
+    };
+  },
   methods: {
     ...mapMutations([
       "updateExpences",
@@ -57,12 +46,15 @@ export default {
       "addNewExpence",
     ]),
   },
-  computed: mapGetters([
-    "getAllExpences",
-    "getExpencesSlice",
-    "getStackOfPages",
-    "getFocusPage",
-  ]),
+  computed: {
+    ...mapGetters([
+      "getAllExpences",
+      "getExpencesSlice",
+      "getStackOfPages",
+      "getFocusPage",
+      "getCategoryArr",
+    ]),
+  },
 };
 </script>
 
@@ -79,6 +71,14 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
+}
+.common_expences a {
+  margin: 10px;
+  text-decoration: none;
+}
+.common_expences input {
+  max-width: 300px;
 }
 </style>
 

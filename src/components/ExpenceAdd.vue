@@ -44,7 +44,6 @@ export default {
   methods: {
     ...mapMutations(["updNewExpence"]),
     addExpence() {
-      console.log(this.date);
       this.alertVisible = false;
       if (!this.category) this.category = this.customCategory;
       if (!this.category || !this.value) return (this.alertVisible = true);
@@ -71,6 +70,8 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route);
+
     if (this.$route.query.category)
       this.customCategory = this.$route.query.category;
     if (this.$route.query.value) this.value = +this.$route.query.value;

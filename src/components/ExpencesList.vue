@@ -13,6 +13,9 @@
       <li>
         <h3>Value</h3>
       </li>
+      <li>
+        <h3>Edit</h3>
+      </li>
     </ul>
     <ul
       v-for="expence in expencesArr"
@@ -24,6 +27,9 @@
       </li>
       <li>{{ expence.category }}</li>
       <li>{{ expence.value }}</li>
+      <li>
+        <router-link :to="'/ModalView/edit'">+/-</router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -36,7 +42,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .expences {
   min-height: 300px;

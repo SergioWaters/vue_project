@@ -19,6 +19,11 @@ const routes = [
     component: ModalView,
   },
   {
+    path: '/ModalView/:action',
+    name: 'ModalViewAdd',
+    component: ModalView,
+  },
+  {
     path: '/addExpence',
     name: 'addExpenceComponent',
     component: AddExpence,

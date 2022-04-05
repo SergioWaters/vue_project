@@ -1,5 +1,8 @@
 <template>
-  <div class="add">
+  <div>
+    <ExpenceAdd v-if="(componentOn = 'expenceAdd')" />
+    <ExpenceEdit v-if="(componentOn = 'expenceEdit')" :id="id" />
+
     <div>
       <!-- v-show="formVisible" -->
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
@@ -27,10 +30,12 @@
 </template>
 
 <script>
+import ExpenceAdd from "../components/ExpenceAdd.vue";
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
 
 export default {
+  components: { ExpenceAdd },
   name: "ExpenceAdd",
   data() {
     return {
@@ -39,6 +44,7 @@ export default {
       category: "",
       customCategory: "",
       value: null,
+      componentOn: "",
     };
   },
   methods: {
@@ -71,7 +77,9 @@ export default {
     },
   },
   mounted() {
-    // if (this.$route.query.category)
+    if (this.$route.params.action === "add") this.componentOn = "expenceEdit";
+    if (this.$route.params.action === "add") this.componentOn = "expenceAdd";
+
     //   this.customCategory = this.$route.query.category;
     // else this.category = this.getCategoryArr[0];
     // if (this.$route.query.value) this.value = +this.$route.query.value;

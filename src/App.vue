@@ -2,12 +2,12 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/addExpence">Add</router-link>
+      <router-link to="/ModalView">Add</router-link>
     </nav>
     <main>
       <h1>Tag your Payments</h1>
 
-      <router-link to="/ModalView/">
+      <router-link to="/ModalView/add">
         <button>Add New Expence</button>
       </router-link>
       <router-view />
