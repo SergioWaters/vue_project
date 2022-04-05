@@ -19,13 +19,14 @@
       :key="(expence.id = expencesArr.indexOf(expence))"
     >
       <li>{{ expence.id + 1 }}</li>
-      <li>{{ expence.date }}</li>
+      <li>
+        {{ new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date)) }}
+      </li>
       <li>{{ expence.category }}</li>
       <li>{{ expence.value }}</li>
     </ul>
   </div>
 </template>
-
 <script>
 export default {
   name: "ExpencesList",

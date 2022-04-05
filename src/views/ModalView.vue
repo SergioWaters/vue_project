@@ -44,13 +44,16 @@ export default {
   methods: {
     ...mapMutations(["updNewExpence"]),
     addExpence() {
+      console.log(this.date);
       this.alertVisible = false;
       if (!this.category) this.category = this.customCategory;
       if (!this.category || !this.value) return (this.alertVisible = true);
 
       const expence = {
         category: this.customCategory ? this.customCategory : this.category,
-        date: this.date || this.getCurrentDate,
+        date: this.date
+          ? new Intl.DateTimeFormat("ru-RU").format(new Date(this.date))
+          : new Intl.DateTimeFormat("ru-RU").format(new Date()),
         value: +this.value,
       };
       this.updNewExpence(expence);

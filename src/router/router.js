@@ -19,8 +19,8 @@ const routes = [
     component: ModalView,
   },
   {
-    path: '/addExpence/',
-    name: 'addExpence',
+    path: '/addExpence',
+    name: 'addExpenceComponent',
     component: AddExpence,
   },
   {
