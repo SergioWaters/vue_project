@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Tag your Payments</h1>
     <div class="common_expences">
       <router-link
         :to="{
@@ -12,22 +11,21 @@
       </router-link>
       <router-link
         :to="{
-          path: '/addExpence/',
-          query: { value: 1000, category: 'Sports' },
+          path: '/addExpence/1000',
+          query: { category: 'Sports' },
         }"
       >
         Add 1000 for Sports category
       </router-link>
       <router-link
         :to="{
-          path: '/addExpence/',
+          path: '/addExpence/7000',
           query: { category: 'Useless' },
         }"
       >
         Add something to Useless category
       </router-link>
     </div>
-
     <ExpencesList :expencesArr="getExpencesSlice" />
     <ExpencesPagination
       @clickHandler="updateFocusPage"
@@ -35,8 +33,6 @@
       :focus="getFocusPage"
       :stack="getStackOfPages"
     />
-
-    <ExpenceAdd @addNewExpence="addNewExpence" />
   </div>
 </template>
 
@@ -45,13 +41,12 @@
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
 import ExpencesList from "../components/ExpencesList.vue";
-import ExpenceAdd from "../components/ExpenceAdd.vue";
 import ExpencesPagination from "../components/ExpencesPagination.vue";
+
 export default {
   name: "App",
   components: {
     ExpencesList,
-    ExpenceAdd,
     ExpencesPagination,
   },
   methods: {
@@ -82,6 +77,7 @@ div {
 }
 .common_expences {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 </style>

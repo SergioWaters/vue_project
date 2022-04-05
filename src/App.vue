@@ -1,7 +1,15 @@
 <template>
   <div id="app">
-    <nav><router-link to="/">Home</router-link> |</nav>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/addExpence">Add</router-link>
+    </nav>
     <main>
+      <h1>Tag your Payments</h1>
+
+      <router-link to="/ModalView/">
+        <button>Add New Expence</button>
+      </router-link>
       <router-view />
     </main>
   </div>
@@ -13,35 +21,13 @@ import { mapActions } from "vuex";
 
 export default {
   name: "App",
-  // data() {
-  //   return {
-  //     commonExpences: [
-  //       {date: ,
-  //       category: ,
-  //       value:
-  //       }
-  //     ]
-  //   }
-  // },
   methods: {
     ...mapActions(["fetchData"]),
-
-    //   goToPageAbout(){
-    //     this.$router.push({
-    //       name: "about",
-    //       params: {
-    //         isTrial: 0
-    //       },
-    //       query: {
-    //         isTrial: true
-    //       }
-    //     })
-    //   }
   },
-  created() {},
-  mounted() {
+  created() {
     this.fetchData();
   },
+  mounted() {},
 };
 </script>
 

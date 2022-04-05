@@ -68,15 +68,17 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.category)
-      this.customCategory = this.$route.query.category;
-    if (this.$route.query.value) this.value = +this.$route.query.value;
-    if (this.$route.params.cost) this.value = +this.$route.params.cost;
-
-    this.addExpence();
-    this.$router.push({
-      name: "home",
-    });
+    // if (this.$route.query.category)
+    //   this.customCategory = this.$route.query.category;
+    // else this.category = this.getCategoryArr[0];
+    // if (this.$route.query.value) this.value = +this.$route.query.value;
+    // if (this.$route.params.cost) this.value = +this.$route.params.cost;
+    // if (this.category && this.value) {
+    //   this.addExpence();
+    //   this.$router.push({
+    //     path: "/",
+    //   });
+    // }
   },
 };
 </script>
