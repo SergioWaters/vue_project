@@ -10,6 +10,12 @@
         {{ amount }} for {{ category }}
       </router-link>
     </div>
+    <button
+      @click="$modal.show('expenceAdd', (settings = { title: 'expenceAdd' }))"
+    >
+      Add New Expence
+    </button>
+
     <ExpencesList :expencesArr="getExpencesSlice" />
     <ExpencesPagination
       @clickHandler="updateFocusPage"

@@ -27,11 +27,13 @@
 </template>
 
 <script>
+import ExpenceAdd from "./components/ExpenceAdd.vue";
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
 
 export default {
-  name: "ExpenceAdd",
+  components: { ExpenceAdd },
+  name: "ExpenceEdit",
   data() {
     return {
       alertVisible: false,

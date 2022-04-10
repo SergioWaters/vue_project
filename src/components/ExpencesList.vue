@@ -27,9 +27,7 @@
       </li>
       <li>{{ expence.category }}</li>
       <li>{{ expence.value }}</li>
-      <li>
-        <router-link :to="'/ModalView/edit'">+/-</router-link>
-      </li>
+      <li>...</li>
     </ul>
   </div>
 </template>

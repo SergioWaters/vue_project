@@ -6,10 +6,11 @@
     </nav>
     <main>
       <h1>Tag your Payments</h1>
-
-      <router-link to="/ModalView/add">
-        <button>Add New Expence</button>
-      </router-link>
+      <ModalWindow
+        :modalComponent="modalComponent"
+        :settings="settings"
+        v-if="modalComponent"
+      />
       <router-view />
     </main>
   </div>
@@ -18,16 +19,37 @@
 
 <script>
 import { mapActions } from "vuex";
+import ModalWindow from "./components/ModalWindow.vue";
 
 export default {
   name: "App",
+  components: {
+    ModalWindow,
+  },
+  data() {
+    return {
+      modalComponent: "",
+      settings: {},
+    };
+  },
   methods: {
     ...mapActions(["fetchData"]),
+    onModalShow(settings) {
+      this.modalComponent = settings.title;
+      this.settings = settings;
+    },
+    onModalHide() {
+      this.modalComponent = "";
+      this.settings = {};
+    },
   },
   created() {
     this.fetchData();
   },
-  mounted() {},
+  mounted() {
+    this.$modal.EventBus.$on("shown", this.onModalShow);
+    this.$modal.EventBus.$on("hide", this.onModalHide);
+  },
 };
 </script>
 
