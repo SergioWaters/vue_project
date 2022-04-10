@@ -62,29 +62,20 @@ export default {
   },
   computed: {
     ...mapGetters(["getCategoryArr"]),
-    getCurrentDate() {
-      const today = new Date();
-      const d = today.getDate();
-      const m = today.getMonth() + 1;
-      const y = today.getFullYear();
-      if (m < 10) return `${y}-${"0" + m}-${d}`;
-      else return `${y}-${"0" + m}-${d}`;
-    },
   },
   mounted() {
-    if (this.$route.params.action === "add") this.componentOn = "expenceEdit";
-    if (this.$route.params.action === "add") this.componentOn = "expenceAdd";
+    console.log(this.$route);
 
-    //   this.customCategory = this.$route.query.category;
-    // else this.category = this.getCategoryArr[0];
-    // if (this.$route.query.value) this.value = +this.$route.query.value;
-    // if (this.$route.params.cost) this.value = +this.$route.params.cost;
-    // if (this.category && this.value) {
-    //   this.addExpence();
-    //   this.$router.push({
-    //     path: "/",
-    //   });
-    // }
+    if (this.$route.query.category)
+      this.customCategory = this.$route.query.category;
+    if (this.$route.query.value) this.value = +this.$route.query.value;
+    if (this.$route.params.cost) this.value = +this.$route.params.cost;
+    if (this.$route.params.cost && this.$route.query.category) {
+      this.addExpence();
+      this.$router.push({
+        name: "home",
+      });
+    }
   },
 };
 </script>

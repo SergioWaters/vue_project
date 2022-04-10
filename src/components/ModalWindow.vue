@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div :class="header">{{ settings.title }}</div>
-    <div :class="content">
-      <ExpenceAdd v-if="modalComponent === 'expenceAdd'" />
+  <div :class="name">
+    <div>{{ settings.title }}</div>
+    <transition fade>
+      <ExpenceAdd v-if="name === 'addExpence'" />
       <!-- <ExpenceEdit v-if="modalComponent === 'expenceEdit'" /> -->
-    </div>
-    <div>
-      <button :class="modalComponent" @click="$modal.hide()">close</button>
-    </div>
+    </transition>
+    <button @click="$modal.hide()">close</button>
   </div>
 </template>
 
@@ -20,7 +18,7 @@ export default {
   components: { ExpenceAdd },
   name: "ModalWindow",
   props: {
-    modalComponent: String,
+    name: String,
     settings: Object,
   },
   methods: {
@@ -32,11 +30,12 @@ export default {
 </script>
 
 <style scoped>
-.expenceAdd {
-  display: flex;
+.addExpence {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 30vh;
+  left: 20vw;
+  background: #f8f8f8;
+  padding: 20px;
 }
 .expenceEdit {
   display: flex;

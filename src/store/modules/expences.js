@@ -34,6 +34,9 @@ export default {
   },
   mutations: {
     updateExpences(state, arr) {
+      arr.forEach(element => {
+        if (!element.id) element.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
+      });
       state.expencesArr = arr
     },
     updateFocusPage(state, focusPage) {
@@ -43,6 +46,7 @@ export default {
       state.stackOfPages = stackOfPages
     },
     updNewExpence(state, expence) {
+      if (!expence.id) expence.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
       state.expencesArr.unshift(expence);
     },
   },

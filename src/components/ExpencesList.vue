@@ -17,26 +17,31 @@
         <h3>Edit</h3>
       </li>
     </ul>
-    <ul
-      v-for="expence in expencesArr"
-      :key="(expence.id = expencesArr.indexOf(expence))"
-    >
-      <li>{{ expence.id + 1 }}</li>
+    <ul v-for="expence in expencesArr" :key="expence.id">
+      <li>{{ getAllExpences.indexOf(expence) + 1 }}</li>
       <li>
         {{ new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date)) }}
       </li>
       <li>{{ expence.category }}</li>
       <li>{{ expence.value }}</li>
-      <li>...</li>
+      <li>
+        <button @click="$modal.show('expenceEdit', { id: expence.id })">
+          ...
+        </button>
+      </li>
     </ul>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ExpencesList",
   props: {
     expencesArr: [],
+    allExpences: [],
   },
+  computed: mapGetters(["getAllExpences"]),
 };
 </script>
 

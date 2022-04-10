@@ -2,15 +2,13 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/ModalView">Add</router-link>
+      <router-link to="/ModalView">Add</router-link> |
+      <router-link to="/about">About</router-link>
     </nav>
     <main>
-      <h1>Tag your Payments</h1>
-      <ModalWindow
-        :modalComponent="modalComponent"
-        :settings="settings"
-        v-if="modalComponent"
-      />
+      <transition name="fade">
+        <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
+      </transition>
       <router-view />
     </main>
   </div>
@@ -19,27 +17,26 @@
 
 <script>
 import { mapActions } from "vuex";
-import ModalWindow from "./components/ModalWindow.vue";
 
 export default {
   name: "App",
   components: {
-    ModalWindow,
+    ModalWindow: () => import("./components/ModalWindow.vue"),
   },
   data() {
     return {
-      modalComponent: "",
+      name: "",
       settings: {},
     };
   },
   methods: {
     ...mapActions(["fetchData"]),
     onModalShow(settings) {
-      this.modalComponent = settings.title;
+      this.name = settings.component;
       this.settings = settings;
     },
     onModalHide() {
-      this.modalComponent = "";
+      this.name = "";
       this.settings = {};
     },
   },
@@ -70,5 +67,13 @@ a {
 }
 a .router-link-exact-active {
   color: #42b983;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

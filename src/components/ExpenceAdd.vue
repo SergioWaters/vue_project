@@ -1,7 +1,6 @@
 <template>
   <div class="add">
     <div>
-      <!-- v-show="formVisible" -->
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
       <div>
         <input v-model="date" type="date" placeholder="Date" />
@@ -68,19 +67,6 @@ export default {
       if (m < 10) return `${y}-${"0" + m}-${d}`;
       else return `${y}-${"0" + m}-${d}`;
     },
-  },
-  mounted() {
-    console.log(this.$route);
-
-    if (this.$route.query.category)
-      this.customCategory = this.$route.query.category;
-    if (this.$route.query.value) this.value = +this.$route.query.value;
-    if (this.$route.params.cost) this.value = +this.$route.params.cost;
-
-    this.addExpence();
-    this.$router.push({
-      name: "home",
-    });
   },
 };
 </script>

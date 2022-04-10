@@ -1,21 +1,16 @@
 <template>
   <div>
-    <input type="number" placeholder="Put amount" v-model="amount" />
     <div class="common_expences">
+      <h3>Popular Categories</h3>
+      <input type="number" placeholder="Put amount" v-model="amount" />
       <router-link
         v-for="category in this.getCategoryArr"
         :key="category"
-        :to="`/addExpence/${amount}?category=${category}`"
+        :to="`/ModalView/${amount}?category=${category}`"
       >
-        {{ amount }} for {{ category }}
+        {{ category }}
       </router-link>
     </div>
-    <button
-      @click="$modal.show('expenceAdd', (settings = { title: 'expenceAdd' }))"
-    >
-      Add New Expence
-    </button>
-
     <ExpencesList :expencesArr="getExpencesSlice" />
     <ExpencesPagination
       @clickHandler="updateFocusPage"
@@ -23,6 +18,16 @@
       :focus="getFocusPage"
       :stack="getStackOfPages"
     />
+    <button
+      @click="
+        $modal.show('addExpence', {
+          title: 'Add your new expence',
+          component: 'addExpence',
+        })
+      "
+    >
+      Add New Expence
+    </button>
   </div>
 </template>
 
@@ -41,7 +46,7 @@ export default {
   },
   data() {
     return {
-      amount: 0,
+      amount: Number,
     };
   },
   methods: {
@@ -71,7 +76,7 @@ div {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 .common_expences {
   display: flex;
@@ -85,6 +90,9 @@ div {
 }
 .common_expences input {
   max-width: 300px;
+}
+button {
+  margin: 20px;
 }
 </style>
 
