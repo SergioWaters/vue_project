@@ -25,7 +25,11 @@
       <li>{{ expence.category }}</li>
       <li>{{ expence.value }}</li>
       <li>
-        <button @click="$modal.show('expenceEdit', { id: expence.id })">
+        <button
+          @click="
+            $context.showContext(getAllExpences.indexOf(expence), expence)
+          "
+        >
           ...
         </button>
       </li>
@@ -39,7 +43,6 @@ export default {
   name: "ExpencesList",
   props: {
     expencesArr: [],
-    allExpences: [],
   },
   computed: mapGetters(["getAllExpences"]),
 };

@@ -5,7 +5,7 @@
       <ExpenceAdd v-if="name === 'addExpence'" />
       <!-- <ExpenceEdit v-if="modalComponent === 'expenceEdit'" /> -->
     </transition>
-    <button @click="$modal.hide()">close</button>
+    <button @click="$modal.hide()">X</button>
   </div>
 </template>
 
@@ -40,5 +40,10 @@ export default {
 .expenceEdit {
   display: flex;
   position: absolute;
+}
+button {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>

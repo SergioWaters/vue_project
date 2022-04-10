@@ -8,6 +8,7 @@
     <main>
       <transition name="fade">
         <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
+        <ExpenceEdit :indx="indx" :obj="obj" v-if="indx !== null" />
       </transition>
       <router-view />
     </main>
@@ -22,11 +23,14 @@ export default {
   name: "App",
   components: {
     ModalWindow: () => import("./components/ModalWindow.vue"),
+    ExpenceEdit: () => import("./components/ExpenceEdit.vue"),
   },
   data() {
     return {
       name: "",
       settings: {},
+      indx: null,
+      obj: {},
     };
   },
   methods: {
@@ -39,6 +43,14 @@ export default {
       this.name = "";
       this.settings = {};
     },
+    onContextShow(indx, obj) {
+      this.indx = indx;
+      if (obj) this.obj = obj;
+    },
+    onContextHide() {
+      this.idx = "";
+      this.obj = {};
+    },
   },
   created() {
     this.fetchData();
@@ -46,6 +58,12 @@ export default {
   mounted() {
     this.$modal.EventBus.$on("shown", this.onModalShow);
     this.$modal.EventBus.$on("hide", this.onModalHide);
+    this.$context.EventBus.$on("show", this.onContextShow);
+    this.$context.EventBus.$on("hide", this.onContextHide);
+  },
+  beforeDestroy() {
+    this.$modal.EventBus.$off("shown", this.onShow);
+    this.$modal.EventBus.$off("hide", this.onHide);
   },
 };
 </script>
@@ -70,7 +88,7 @@ a .router-link-exact-active {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.5s;
 }
 .fade-enter,
 .fade-leave-to {

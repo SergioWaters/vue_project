@@ -4,21 +4,18 @@ export default {
 
     this.install = true;
 
-    Vue.prototype.$modal = {
+    Vue.prototype.$context = {
 
       EventBus: new Vue(),
 
-      showContext(name, settings) {
-        this.EventBus.$emit('showContext', { name, ...settings })
+      showContext(indx, obj) {
+        this.EventBus.$emit('show', indx, obj)
+        console.log(indx, obj)
       },
 
       hideContext() {
-        this.EventBus.$emit('showContext')
+        this.EventBus.$emit('hide')
       },
-
-      edit() {
-
-      }
 
     }
   }

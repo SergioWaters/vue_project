@@ -59,14 +59,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getCategoryArr"]),
-    getCurrentDate() {
-      const today = new Date();
-      const d = today.getDate();
-      const m = today.getMonth() + 1;
-      const y = today.getFullYear();
-      if (m < 10) return `${y}-${"0" + m}-${d}`;
-      else return `${y}-${"0" + m}-${d}`;
-    },
   },
 };
 </script>
