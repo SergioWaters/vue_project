@@ -4,11 +4,11 @@
       <h3>Popular Categories</h3>
       <input type="number" placeholder="Put amount" v-model="amount" />
       <router-link
-        v-for="category in this.getCategoryArr"
-        :key="category"
-        :to="`/ModalView/${amount}?category=${category}`"
+        v-for="item in getCategoryArr"
+        :key="item"
+        :to="`/ModalView/${amount}?category=${item}`"
       >
-        {{ category }}
+        {{ item }}
       </router-link>
     </div>
     <ExpencesList :expencesArr="getExpencesSlice" />
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
 import ExpencesList from "../components/ExpencesList.vue";

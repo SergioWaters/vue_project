@@ -10,7 +10,6 @@ export default {
 
       showContext(indx, obj) {
         this.EventBus.$emit('show', indx, obj)
-        console.log(indx, obj)
       },
 
       hideContext() {

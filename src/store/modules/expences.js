@@ -1,7 +1,7 @@
 export default {
   state: {
     expencesArr: [],
-    stackOfPages: 5,
+    stackOfPages: 15,
     focusPage: 1,
   },
   getters: {
@@ -51,8 +51,8 @@ export default {
       if (!expence.id) expence.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
       state.expencesArr.unshift(expence);
     },
-    updEditExpence(state, indx, item) {
-      state.expencesArr.splice(indx, 1, item)
+    updEditExpence(state, [indx, item]) {
+      item ? state.expencesArr.splice(+indx, 1, item) : state.expencesArr.splice(+indx, 1)
     }
   },
   actions: {

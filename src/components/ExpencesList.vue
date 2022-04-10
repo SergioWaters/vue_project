@@ -27,7 +27,11 @@
       <li>
         <button
           @click="
-            $context.showContext(getAllExpences.indexOf(expence), expence)
+            $context.showContext([
+              getAllExpences.indexOf(expence),
+              expence,
+              $event.target,
+            ])
           "
         >
           ...

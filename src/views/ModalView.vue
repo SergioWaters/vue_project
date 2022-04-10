@@ -64,8 +64,6 @@ export default {
     ...mapGetters(["getCategoryArr"]),
   },
   mounted() {
-    console.log(this.$route);
-
     if (this.$route.query.category)
       this.customCategory = this.$route.query.category;
     if (this.$route.query.value) this.value = +this.$route.query.value;

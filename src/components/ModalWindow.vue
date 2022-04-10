@@ -21,11 +21,6 @@ export default {
     name: String,
     settings: Object,
   },
-  methods: {
-    modalHandler() {},
-  },
-  computed: {},
-  mounted() {},
 };
 </script>
 
