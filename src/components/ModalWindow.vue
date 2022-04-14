@@ -10,12 +10,10 @@
 </template>
 
 <script>
-import ExpenceAdd from "./ExpenceAdd.vue";
-
 // import ExpenceEdit from "./ExpenceEdit.vue";
 
 export default {
-  components: { ExpenceAdd },
+  components: { ExpenceAdd: () => import("./ExpenceAdd.vue") },
   name: "ModalWindow",
   props: {
     name: String,

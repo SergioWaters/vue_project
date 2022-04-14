@@ -34,7 +34,7 @@ export default {
   props: {
     cat: String,
     customCat: String,
-    val: String,
+    val: Number,
     dat: String,
   },
   data() {
@@ -56,7 +56,7 @@ export default {
       const expence = {
         category: this.customCategory || this.category,
         date: this.date || this.getCurrentDate,
-        value: +this.value,
+        value: this.val || +this.value,
       };
       this.updNewExpence(expence);
     },
@@ -73,8 +73,7 @@ export default {
   },
   mounted() {
     if (this.props) {
-      this.category = this.cat;
-      this.customCategory = this.customCat;
+      this.customCategory = this.customCat || this.cat;
       this.value = this.val;
       this.date = this.dat;
     }

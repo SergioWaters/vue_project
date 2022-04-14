@@ -15,7 +15,7 @@ const routes = [
     component: () => import('../views/ModalView.vue'),
   },
   {
-    path: '/ModalView/:cost',
+    path: '/ModalView/:category',
     name: 'ModalViewAdd',
     component: () => import('../views/ModalView.vue'),
   },

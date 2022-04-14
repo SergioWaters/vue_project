@@ -6,7 +6,7 @@
       <router-link
         v-for="item in getCategoryArr"
         :key="item"
-        :to="`/ModalView/${amount}?category=${item}`"
+        :to="`/ModalView/:${item}?value=${amount}`"
       >
         {{ item }}
       </router-link>
