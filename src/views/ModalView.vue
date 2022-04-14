@@ -31,7 +31,7 @@ import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
 
 export default {
-  name: "ExpenceAdd",
+  name: "ExpenceAddModal",
   data() {
     return {
       alertVisible: false,
@@ -45,23 +45,28 @@ export default {
   methods: {
     ...mapMutations(["updNewExpence"]),
     addExpence() {
-      console.log(this.date);
       this.alertVisible = false;
       if (!this.category) this.category = this.customCategory;
       if (!this.category || !this.value) return (this.alertVisible = true);
 
       const expence = {
-        category: this.customCategory ? this.customCategory : this.category,
-        date: this.date
-          ? new Intl.DateTimeFormat("ru-RU").format(new Date(this.date))
-          : new Intl.DateTimeFormat("ru-RU").format(new Date()),
+        category: this.customCategory || this.category,
+        date: this.date || this.getCurrentDate,
         value: +this.value,
       };
+
       this.updNewExpence(expence);
     },
   },
   computed: {
     ...mapGetters(["getCategoryArr"]),
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${y}.${m}.${d}`;
+    },
   },
   mounted() {
     if (this.$route.query.category)

@@ -49,16 +49,22 @@ export default {
 
       const expence = {
         category: this.customCategory ? this.customCategory : this.category,
-        date: this.date
-          ? new Intl.DateTimeFormat("ru-RU").format(new Date(this.date))
-          : new Intl.DateTimeFormat("ru-RU").format(new Date()),
+        date: this.date || this.getCurrentDate(),
         value: +this.value,
       };
+      console.log(expence);
       this.updNewExpence(expence);
     },
   },
   computed: {
     ...mapGetters(["getCategoryArr"]),
+    getCurrentDate() {
+      const today = new Date();
+      const d = today.getDate();
+      const m = today.getMonth() + 1;
+      const y = today.getFullYear();
+      return `${y}.${m}.${d}`;
+    },
   },
 };
 </script>
