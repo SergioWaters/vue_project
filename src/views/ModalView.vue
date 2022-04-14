@@ -1,5 +1,13 @@
 <template>
   <div>
+    component
+    <ExpenceAdd
+      :cat="category"
+      :dat="date"
+      :val="value"
+      :customCat="customCategory"
+    />
+    view
     <div>
       <!-- v-show="formVisible" -->
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
@@ -29,8 +37,10 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapMutations } from "vuex";
+import ExpenceAdd from "../components/ExpenceAdd.vue";
 
 export default {
+  components: { ExpenceAdd },
   name: "ExpenceAddModal",
   data() {
     return {

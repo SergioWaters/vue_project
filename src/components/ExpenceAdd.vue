@@ -31,6 +31,12 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "ExpenceAdd",
+  props: {
+    cat: String,
+    customCat: String,
+    val: String,
+    dat: String,
+  },
   data() {
     return {
       alertVisible: false,
@@ -44,15 +50,14 @@ export default {
     ...mapMutations(["updNewExpence"]),
     addExpence() {
       this.alertVisible = false;
-      if (!this.category) this.category = this.customCategory;
+      this.category = this.customCategory || this.category;
       if (!this.category || !this.value) return (this.alertVisible = true);
 
       const expence = {
-        category: this.customCategory ? this.customCategory : this.category,
-        date: this.date || this.getCurrentDate(),
+        category: this.customCategory || this.category,
+        date: this.date || this.getCurrentDate,
         value: +this.value,
       };
-      console.log(expence);
       this.updNewExpence(expence);
     },
   },
@@ -65,6 +70,14 @@ export default {
       const y = today.getFullYear();
       return `${y}.${m}.${d}`;
     },
+  },
+  mounted() {
+    if (this.props) {
+      this.category = this.cat;
+      this.customCategory = this.customCat;
+      this.value = this.val;
+      this.date = this.dat;
+    }
   },
 };
 </script>
