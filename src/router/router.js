@@ -10,18 +10,13 @@ const routes = [
     component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/ModalView',
-    name: 'ModalView',
-    component: () => import('../views/ModalView.vue'),
-  },
-  {
-    path: '/ModalView/:category',
-    name: 'ModalViewAdd',
-    component: () => import('../views/ModalView.vue'),
-  },
-  {
     path: '/addExpence',
     name: 'addExpenceComponent',
+    component: () => import('../components/ExpenceAdd.vue'),
+  },
+  {
+    path: '/addExpence/:category',
+    name: 'addExpence',
     component: () => import('../components/ExpenceAdd.vue'),
   },
   {

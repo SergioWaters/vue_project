@@ -1,6 +1,6 @@
 <template>
   <div class="edit-menu" v-if="obj" :style="styles">
-    <div v-if="!isVisForm">
+    <div class="buttons" v-if="!isVisForm">
       <button @click="isVisForm = !isVisForm">Edit</button>
       <button @click="deleteItem()">Delete</button>
     </div>
@@ -9,8 +9,8 @@
       <input type="number" v-model="obj.value" :placeholder="obj.value" />
       <input type="date" v-model="obj.date" :placeholder="obj.date" />
       <button @click="saveChanges()">Save</button>
-      <button class="closer" @click="onContextHide()">X</button>
     </div>
+    <button class="closer" @click="onContextHide()">X</button>
   </div>
 </template>
 
@@ -43,6 +43,7 @@ export default {
       };
       this.updEditExpence([this.indx, newObj]);
       this.onContextHide();
+      this.isVisForm = false;
     },
     onContextShow([indx, obj, caller]) {
       this.setPositon(caller);
@@ -51,6 +52,7 @@ export default {
     },
     onContextHide() {
       this.obj = null;
+      this.isVisForm = false;
     },
     setPositon(caller) {
       const pos = caller.getBoundingClientRect();
@@ -61,7 +63,7 @@ export default {
   computed: {
     styles() {
       return {
-        top: `${this.yPos + 110}px`,
+        top: `${this.yPos + 25}px`,
         left: `${this.xPos - 100}px`,
       };
     },
@@ -81,9 +83,10 @@ export default {
 .edit-menu {
   position: absolute;
   background-color: #f8f8f8;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  border: 1px solid #222;
 }
 .form {
   display: flex;
@@ -93,6 +96,10 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
 }
 input,
 select {

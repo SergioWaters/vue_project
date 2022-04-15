@@ -6,10 +6,20 @@
       <router-link
         v-for="item in getCategoryArr"
         :key="item"
-        :to="`/ModalView/:${item}?value=${amount}`"
+        :to="`/addExpence/${item}?value=${amount}`"
       >
         {{ item }}
       </router-link>
+      <button
+        @click="
+          $modal.show('addExpence', {
+            title: 'Add your new expence',
+            component: 'addExpence',
+          })
+        "
+      >
+        Add New Expence
+      </button>
     </div>
     <ExpencesList :expencesArr="getExpencesSlice" />
     <ExpencesPagination
@@ -18,16 +28,6 @@
       :focus="getFocusPage"
       :stack="getStackOfPages"
     />
-    <button
-      @click="
-        $modal.show('addExpence', {
-          title: 'Add your new expence',
-          component: 'addExpence',
-        })
-      "
-    >
-      Add New Expence
-    </button>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      amount: Number,
+      amount: 0,
     };
   },
   methods: {

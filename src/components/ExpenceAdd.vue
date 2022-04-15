@@ -56,8 +56,9 @@ export default {
       const expence = {
         category: this.customCategory || this.category,
         date: this.date || this.getCurrentDate,
-        value: this.val || +this.value,
+        value: this.value,
       };
+
       this.updNewExpence(expence);
     },
   },
@@ -76,6 +77,15 @@ export default {
       this.customCategory = this.customCat || this.cat;
       this.value = this.val;
       this.date = this.dat;
+    }
+    if (this.$route) {
+      console.log(this.$route);
+      this.customCategory = this.$route.params.category;
+      this.value = this.$route.query.value;
+      this.addExpence();
+      this.$router.push({
+        name: "home",
+      });
     }
   },
 };

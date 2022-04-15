@@ -1,7 +1,7 @@
 export default {
   state: {
     expencesArr: [],
-    stackOfPages: 15,
+    stackOfPages: 5,
     focusPage: 1,
   },
   getters: {
