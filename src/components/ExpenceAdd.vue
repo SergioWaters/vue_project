@@ -78,11 +78,13 @@ export default {
       this.value = this.val;
       this.date = this.dat;
     }
-    if (this.$route) {
+    if (this.$route.query.push) {
       console.log(this.$route);
-      this.customCategory = this.$route.params.category;
-      this.value = this.$route.query.value;
-      this.addExpence();
+      if (this.$route.query.value !== "null") {
+        this.customCategory = this.$route.params.category;
+        this.value = this.$route.query.value;
+        this.addExpence();
+      }
       this.$router.push({
         name: "home",
       });

@@ -6,7 +6,7 @@
       <router-link
         v-for="item in getCategoryArr"
         :key="item"
-        :to="`/addExpence/${item}?value=${amount}`"
+        :to="`/addExpence/${item}?value=${amount}&push=true`"
       >
         {{ item }}
       </router-link>
@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      amount: 0,
+      amount: null,
     };
   },
   methods: {
