@@ -1,7 +1,6 @@
 <template>
   <div class="add">
     <div>
-      <!-- v-show="formVisible" -->
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
       <div>
         <input v-model="date" type="date" placeholder="Date" />
@@ -32,6 +31,12 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "ExpenceAdd",
+  props: {
+    cat: String,
+    customCat: String,
+    val: Number,
+    dat: String,
+  },
   data() {
     return {
       alertVisible: false,
@@ -45,14 +50,15 @@ export default {
     ...mapMutations(["updNewExpence"]),
     addExpence() {
       this.alertVisible = false;
-      if (!this.category) this.category = this.customCategory;
+      this.category = this.customCategory || this.category;
       if (!this.category || !this.value) return (this.alertVisible = true);
 
       const expence = {
-        category: this.customCategory ? this.customCategory : this.category,
+        category: this.customCategory || this.category,
         date: this.date || this.getCurrentDate,
-        value: +this.value,
+        value: this.value,
       };
+
       this.updNewExpence(expence);
     },
   },
@@ -63,20 +69,24 @@ export default {
       const d = today.getDate();
       const m = today.getMonth() + 1;
       const y = today.getFullYear();
-      if (m < 10) return `${y}-${"0" + m}-${d}`;
-      else return `${y}-${"0" + m}-${d}`;
+      return `${y}.${m}.${d}`;
     },
   },
   mounted() {
-    if (this.$route.query.category)
-      this.customCategory = this.$route.query.category;
-    if (this.$route.query.value) this.value = +this.$route.query.value;
-    if (this.$route.params.cost) this.value = +this.$route.params.cost;
-
-    this.addExpence();
-    this.$router.push({
-      name: "home",
-    });
+    if (this.props) {
+      this.customCategory = this.customCat || this.cat;
+      this.value = this.val;
+      this.date = this.dat;
+    }
+    if (this.$route) {
+      console.log(this.$route);
+      this.customCategory = this.$route.params.category;
+      this.value = this.$route.query.value;
+      this.addExpence();
+      this.$router.push({
+        name: "home",
+      });
+    }
   },
 };
 </script>

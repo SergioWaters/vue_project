@@ -1,30 +1,25 @@
 <template>
   <div>
     <div class="common_expences">
+      <h3>Popular Categories</h3>
+      <input type="number" placeholder="Put amount" v-model="amount" />
       <router-link
-        :to="{
-          path: '/addExpence/',
-          query: { value: 5000, category: 'Entertainment' },
-        }"
+        v-for="item in getCategoryArr"
+        :key="item"
+        :to="`/addExpence/${item}?value=${amount}`"
       >
-        Add 5000 for Entertainment category
+        {{ item }}
       </router-link>
-      <router-link
-        :to="{
-          path: '/addExpence/1000',
-          query: { category: 'Sports' },
-        }"
+      <button
+        @click="
+          $modal.show('addExpence', {
+            title: 'Add your new expence',
+            component: 'addExpence',
+          })
+        "
       >
-        Add 1000 for Sports category
-      </router-link>
-      <router-link
-        :to="{
-          path: '/addExpence/7000',
-          query: { category: 'Useless' },
-        }"
-      >
-        Add something to Useless category
-      </router-link>
+        Add New Expence
+      </button>
     </div>
     <ExpencesList :expencesArr="getExpencesSlice" />
     <ExpencesPagination
@@ -37,7 +32,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
 import ExpencesList from "../components/ExpencesList.vue";
@@ -49,6 +43,11 @@ export default {
     ExpencesList,
     ExpencesPagination,
   },
+  data() {
+    return {
+      amount: 0,
+    };
+  },
   methods: {
     ...mapMutations([
       "updateExpences",
@@ -57,12 +56,15 @@ export default {
       "addNewExpence",
     ]),
   },
-  computed: mapGetters([
-    "getAllExpences",
-    "getExpencesSlice",
-    "getStackOfPages",
-    "getFocusPage",
-  ]),
+  computed: {
+    ...mapGetters([
+      "getAllExpences",
+      "getExpencesSlice",
+      "getStackOfPages",
+      "getFocusPage",
+      "getCategoryArr",
+    ]),
+  },
 };
 </script>
 
@@ -73,12 +75,23 @@ div {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 .common_expences {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
+}
+.common_expences a {
+  margin: 10px;
+  text-decoration: none;
+}
+.common_expences input {
+  max-width: 300px;
+}
+button {
+  margin: 20px;
 }
 </style>
 

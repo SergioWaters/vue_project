@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ModalView from '../views/ModalView.vue'
-import AddExpence from '../components/ExpenceAdd.vue'
-
 
 Vue.use(VueRouter)
 
@@ -11,24 +7,28 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/ModalView/',
-    name: 'ModalView',
-    component: ModalView,
+    path: '/addExpence',
+    name: 'addExpenceComponent',
+    component: () => import('../components/ExpenceAdd.vue'),
   },
   {
-    path: '/addExpence/',
+    path: '/addExpence/:category',
     name: 'addExpence',
-    component: AddExpence,
+    component: () => import('../components/ExpenceAdd.vue'),
   },
   {
-    path: '/addExpence/:cost',
-    name: 'addExpence',
-    component: AddExpence,
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutView.vue'),
   },
-
+  {
+    path: '*',
+    name: '404',
+    component: () => import('../views/404View.vue'),
+  },
 ]
 
 const router = new VueRouter({

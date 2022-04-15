@@ -20,20 +20,25 @@ export default {
       return state.focusPage
     },
     getCategoryArr(state) {
-      let categoryArr = state.expencesArr.reduce((acc, expence) => {
-        if (acc.map[expence.category]) return acc;
-        acc.map[expence.category] = true;
-        acc.categoryArr.push(expence.category);
-        return acc;
-      }, {
-        map: {},
-        categoryArr: []
-      }).categoryArr;
+      // let categoryArr = state.expencesArr.reduce((acc, expence) => {
+      //   if (acc.map[expence.category]) return acc;
+      //   acc.map[expence.category] = true;
+      //   acc.categoryArr.push(expence.category);
+      //   return acc;
+      // }, {
+      //   map: {},
+      //   categoryArr: []
+      // }).categoryArr;
+      let categoryArr = [...new Set(state.expencesArr.map((item) => item.category))];
+
       return categoryArr
     }
   },
   mutations: {
     updateExpences(state, arr) {
+      arr.forEach(element => {
+        if (!element.id) element.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
+      });
       state.expencesArr = arr
     },
     updateFocusPage(state, focusPage) {
@@ -43,8 +48,12 @@ export default {
       state.stackOfPages = stackOfPages
     },
     updNewExpence(state, expence) {
+      if (!expence.id) expence.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
       state.expencesArr.unshift(expence);
     },
+    updEditExpence(state, [indx, item]) {
+      item ? state.expencesArr.splice(+indx, 1, item) : state.expencesArr.splice(+indx, 1)
+    }
   },
   actions: {
     fetchData(ctx) {
