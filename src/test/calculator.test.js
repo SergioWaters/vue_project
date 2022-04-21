@@ -88,25 +88,70 @@ describe('Test for Calculator', () => {
     expect(wrapper.vm.result).toBe(9)
   })
   //keyboard
-  it('test keboard button 9', async () => {
+  it('test numbers keboard visible', async () => {
 
-    const button = wrapper.find('button[name="9"]')
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
 
-    button.trigger('click')
-
-    expect(wrapper.vm.operand1).toBe(9)
+    expect(wrapper.text()).toContain("backspace")
+    expect(wrapper.html()).toContain('<div class="numberKeys">')
   })
+  it('test keboard input2', async () => {
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
+
+    wrapper.find('input[id="operand2"]').setChecked(true)
+    expect(wrapper.vm.operandPick).toBe("operand2")
+
+    wrapper.find("button[name='7']").trigger('click')
+    expect(wrapper.vm.operand2).toBe(7)
+  })
+  it('test keboard input1', async () => {
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
+
+    wrapper.find('input[id="operand1"]').setChecked(true)
+    expect(wrapper.vm.operandPick).toBe("operand1")
+
+    wrapper.find("button[name='7']").trigger('click')
+    expect(wrapper.vm.operand1).toBe(7)
+  })
+  it('test keboard buttons', async () => {
+
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
+
+    wrapper.find('button[name="0"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(0)
+    wrapper.find('button[name="9"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(9)
+    wrapper.find('button[name="8"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(98)
+    wrapper.find('button[name="7"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(987)
+    wrapper.find('button[name="6"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(9876)
+    wrapper.find('button[name="5"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(98765)
+    wrapper.find('button[name="4"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(987654)
+    wrapper.find('button[name="3"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(9876543)
+    wrapper.find('button[name="2"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(98765432)
+    wrapper.find('button[name="1"]').trigger('click')
+    expect(wrapper.vm.operand1).toBe(987654321)
+
+  })
+
   it('test input=3 & keboard button 5', async () => {
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
     oper1Input.setValue('3')
 
     const button = wrapper.find('button[name="5"]')
-    console.log(button)
-
     button.trigger('click')
 
     expect(wrapper.vm.operand1).toBe(35)
   })
   it('test input=333 & keboard button backspace', async () => {
+    wrapper.find('input[name="showNumbers"]').setChecked(true)
+
     oper1Input.setValue('333')
 
     wrapper.find('button[name="backspace"]').trigger('click')

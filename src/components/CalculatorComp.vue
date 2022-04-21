@@ -30,7 +30,7 @@
       Отобразить экранную клавиатуру с цифрами
     </label>
 
-    <div class="numberKeys" v-show="numberKeysCheckbox">
+    <div class="numberKeys" v-if="numberKeysCheckbox">
       <button
         :name="number"
         v-for="number in numberArr"
