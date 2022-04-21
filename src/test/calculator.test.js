@@ -1,5 +1,6 @@
 import CalculatorComp from "../components/CalculatorComp.vue"; //компонент, который будем тестить
 import { mount } from "@vue/test-utils"; // метод, принимающий два парама: компонент, который будем тетстить и опции.пропсы тестирования
+import { describe, beforeEach, it, expect } from 'jest'
 
 describe('Test for Calculator', () => {
   let wrapper;
@@ -25,7 +26,6 @@ describe('Test for Calculator', () => {
 
     const operation = wrapper.find('button[name="+"]')
 
-
     oper1Input.setValue('1')
     oper2Input.setValue('1')
     operation.trigger('click')
@@ -35,7 +35,6 @@ describe('Test for Calculator', () => {
   it('test operation -', async () => {
 
     const operation = wrapper.find('button[name="-"]')
-
 
     oper1Input.setValue('1')
     oper2Input.setValue('1')
@@ -47,7 +46,6 @@ describe('Test for Calculator', () => {
 
     const operation = wrapper.find('button[name="/"]')
 
-
     oper1Input.setValue('1')
     oper2Input.setValue('1')
     operation.trigger('click')
@@ -57,7 +55,6 @@ describe('Test for Calculator', () => {
   it('test operation *', async () => {
 
     const operation = wrapper.find('button[name="*"]')
-
 
     oper1Input.setValue('1')
     oper2Input.setValue('3')
@@ -69,7 +66,6 @@ describe('Test for Calculator', () => {
 
     const operation = wrapper.find('button[name="%"]')
 
-
     oper1Input.setValue('7')
     oper2Input.setValue('2')
     operation.trigger('click')
@@ -80,14 +76,13 @@ describe('Test for Calculator', () => {
 
     const operation = wrapper.find('button[name="pow"]')
 
-
     oper1Input.setValue('3')
     oper2Input.setValue('2')
     operation.trigger('click')
 
     expect(wrapper.vm.result).toBe(9)
   })
-  //keyboard
+  //NUMBERS keyboard
   it('test numbers keboard visible', async () => {
 
     wrapper.find('input[name="showNumbers"]').setChecked(true)
@@ -116,6 +111,7 @@ describe('Test for Calculator', () => {
   it('test keboard buttons', async () => {
 
     wrapper.find('input[name="showNumbers"]').setChecked(true)
+    wrapper.find('input[id="operand1"]').setChecked(true)
 
     wrapper.find('button[name="0"]').trigger('click')
     expect(wrapper.vm.operand1).toBe(0)
