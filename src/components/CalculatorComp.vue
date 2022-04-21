@@ -3,22 +3,15 @@
     <h1>{{ msg }}</h1>
     <hr />
     <div class="display">
-      <input
-        v-model.number="operand1"
-        type="number"
-        :disabled="operandPick === 'pick2'"
-      />
-      <input
-        v-model.number="operand2"
-        type="number"
-        :disabled="operandPick === 'pick1'"
-      />
+      <input v-model.number="operand1" name="oper1" />
+      <input v-model.number="operand2" name="oper2" />
 
       = {{ result }}
     </div>
 
     <div class="keyboard">
       <button
+        :name="operation"
         v-for="operation in operationArr"
         :key="operation"
         @click="calculate(operation)"
@@ -52,20 +45,20 @@
           Операнд 1
           <input
             type="radio"
-            name="operand1"
+            name="operand"
             id="operand1"
             v-model="operandPick"
-            value="pick1"
+            value="operand1"
           />
         </label>
         <label for="operand2">
           Операнд 2
           <input
             type="radio"
-            name="operand2"
+            name="operand"
             id="operand2"
             v-model="operandPick"
-            value="pick2"
+            value="operand2"
           />
         </label>
       </div>
@@ -79,41 +72,38 @@ export default {
   data() {
     return {
       msg: "Calculator",
-      operandPick: " ",
       numberKeysCheckbox: "false",
-      message: "Hello Vue",
       operand1: 0,
       operand2: 0,
       result: 0,
       numberArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       operationArr: ["+", "-", "/", "*", "%", "pow"],
+      operandPick: "operand1",
     };
   },
   methods: {
-    doThat(str, evnt) {
-      console.log("click", str, evnt);
-    },
-
-    onValidate() {
-      console.log("validation true");
-    },
-
     addNumber(number) {
-      if (this.operandPick === "pick1")
-        this.operand1 = this.operand1 + `${number}`;
-      if (this.operandPick === "pick2")
-        this.operand2 = this.operand2 + `${number}`;
+      this[this.operandPick] === 0
+        ? (this[this.operandPick] = number)
+        : (this[this.operandPick] += String(number));
+      // if (this.operandPick === "pick1") {
+      //   this.operand1 === 0
+      //     ? (this.operand1 = number)
+      //     : (this.operand1 += String(number));
+      // } else {
+      //   this.operand2 === 0
+      //     ? (this.operand2 = number)
+      //     : (this.operand2 += String(number));
+      // }
     },
 
     removeNumber() {
-      if (this.operandPick === "pick1")
-        this.operand1 = this.operand1.slice(0, -1);
-      if (this.operandPick === "pick2")
-        this.operand2 = this.operand2.slice(0, -1);
+      this[this.operandPick] = String(this[this.operandPick]).slice(0, -1);
     },
 
     calculate(operation) {
       const { operand1, operand2 } = this;
+      this.result = "Calculator";
       switch (operation) {
         case "+":
           this.result = +operand1 + +operand2;
@@ -122,12 +112,14 @@ export default {
           this.result = +operand1 - +operand2;
           break;
         case "/":
+          if (+operand2 === 0) return (this.result = "На ноль делить нельзя");
           this.result = +operand1 / +operand2;
           break;
         case "*":
           this.result = +operand1 * +operand2;
           break;
         case "%":
+          if (+operand2 === 0) return (this.result = "На ноль делить нельзя");
           this.result = +operand1 % +operand2;
           break;
         case "pow":

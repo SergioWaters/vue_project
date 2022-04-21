@@ -2,7 +2,7 @@
   <div>
     <div class="common_expences">
       <h3>Popular Categories</h3>
-      <input type="number" placeholder="Put amount" v-model="amount" />
+      <input placeholder="Put amount" v-model.number="amount" />
       <router-link
         v-for="item in getCategoryArr"
         :key="item"
