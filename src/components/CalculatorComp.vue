@@ -32,13 +32,14 @@
 
     <div class="numberKeys" v-show="numberKeysCheckbox">
       <button
+        :name="number"
         v-for="number in numberArr"
         :key="number"
         @click="addNumber(number)"
       >
         {{ number }}
       </button>
-      <button @click="removeNumber()">backspace</button>
+      <button name="backspace" @click="removeNumber()">backspace</button>
 
       <div class="operandPick">
         <label for="operand1">
@@ -83,9 +84,11 @@ export default {
   },
   methods: {
     addNumber(number) {
+      const concat = Number(String(this[this.operandPick]) + String(number));
       this[this.operandPick] === 0
         ? (this[this.operandPick] = number)
-        : (this[this.operandPick] += String(number));
+        : (this[this.operandPick] = concat);
+      // Number(this[this.operandPick]);
       // if (this.operandPick === "pick1") {
       //   this.operand1 === 0
       //     ? (this.operand1 = number)
@@ -98,7 +101,8 @@ export default {
     },
 
     removeNumber() {
-      this[this.operandPick] = String(this[this.operandPick]).slice(0, -1);
+      const backspace = String(this[this.operandPick]).slice(0, -1);
+      this[this.operandPick] = Number(backspace);
     },
 
     calculate(operation) {

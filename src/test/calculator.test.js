@@ -12,12 +12,10 @@ describe('Test for Calculator', () => {
     oper1Input = wrapper.find('input[name="oper1"]')
   })
   it('test operand1 input value', async () => {
-    oper1Input = wrapper.find('input[name="oper1"]')
     oper1Input.setValue('1')
     expect(wrapper.vm.operand1).toBe(1)
   })
   it('test operand2 input value', async () => {
-    oper2Input = wrapper.find('input[name="oper2"]')
     oper2Input.setValue('1')
     expect(wrapper.vm.operand2).toBe(1)
   })
@@ -88,5 +86,31 @@ describe('Test for Calculator', () => {
     operation.trigger('click')
 
     expect(wrapper.vm.result).toBe(9)
+  })
+  //keyboard
+  it('test keboard button 9', async () => {
+
+    const button = wrapper.find('button[name="9"]')
+
+    button.trigger('click')
+
+    expect(wrapper.vm.operand1).toBe(9)
+  })
+  it('test input=3 & keboard button 5', async () => {
+    oper1Input.setValue('3')
+
+    const button = wrapper.find('button[name="5"]')
+    console.log(button)
+
+    button.trigger('click')
+
+    expect(wrapper.vm.operand1).toBe(35)
+  })
+  it('test input=333 & keboard button backspace', async () => {
+    oper1Input.setValue('333')
+
+    wrapper.find('button[name="backspace"]').trigger('click')
+
+    expect(wrapper.vm.operand1).toBe(33)
   })
 })
