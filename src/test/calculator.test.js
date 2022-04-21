@@ -1,5 +1,6 @@
 import CalculatorComp from "../components/CalculatorComp.vue"; //компонент, который будем тестить
 import { mount } from "@vue/test-utils"; // метод, принимающий два парама: компонент, который будем тетстить и опции.пропсы тестирования
+import { describe, expect, it, beforeEach } from '@jest/globals'
 
 describe('Test for Calculator', () => {
   let wrapper;
