@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/ModalView">Add</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <main>
-      <transition name="fade">
-        <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
-      </transition>
-      <router-view />
-      <transition name="fade">
-        <ExpenceEdit />
-      </transition>
-    </main>
+    <v-app>
+      <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/AddExpence">Add</router-link> |
+        <router-link to="/about">About</router-link> |
+        <router-link to="/Calculator">Calculator</router-link>
+      </nav>
+      <main>
+        <transition name="fade">
+          <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
+        </transition>
+        <router-view />
+        <transition name="fade">
+          <ExpenceEdit />
+        </transition>
+      </main>
+    </v-app>
   </div>
 </template>
 
@@ -40,6 +43,7 @@ export default {
     onModalShow(settings) {
       this.name = settings.component;
       this.settings = settings;
+      console.log(this.name);
     },
     onModalHide() {
       this.name = "";

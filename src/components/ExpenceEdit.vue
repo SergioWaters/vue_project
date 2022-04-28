@@ -56,7 +56,9 @@ export default {
     },
     setPositon(caller) {
       const pos = caller.getBoundingClientRect();
-      this.xPos = pos.left;
+      console.log(pos);
+
+      this.xPos = pos.right;
       this.yPos = pos.top;
     },
   },
@@ -64,7 +66,7 @@ export default {
     styles() {
       return {
         top: `${this.yPos + 25}px`,
-        left: `${this.xPos - 100}px`,
+        left: `${this.xPos}px`,
       };
     },
   },

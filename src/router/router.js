@@ -25,6 +25,11 @@ const routes = [
     component: () => import('../views/AboutView.vue'),
   },
   {
+    path: '/calculator',
+    name: 'calculator',
+    component: () => import('../views/CalculatorView.vue'),
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('../views/404View.vue'),
