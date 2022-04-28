@@ -38,7 +38,7 @@ import ExpencesList from "../components/ExpencesList.vue";
 import ExpencesPagination from "../components/ExpencesPagination.vue";
 
 export default {
-  name: "App",
+  name: "HomeView",
   components: {
     ExpencesList,
     ExpencesPagination,

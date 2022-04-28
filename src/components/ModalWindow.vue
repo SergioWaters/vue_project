@@ -3,15 +3,12 @@
     <div>{{ settings.title }}</div>
     <transition fade>
       <ExpenceAdd v-if="name === 'addExpence'" />
-      <!-- <ExpenceEdit v-if="modalComponent === 'expenceEdit'" /> -->
     </transition>
     <button @click="$modal.hide()">X</button>
   </div>
 </template>
 
 <script>
-// import ExpenceEdit from "./ExpenceEdit.vue";
-
 export default {
   components: { ExpenceAdd: () => import("./ExpenceAdd.vue") },
   name: "ModalWindow",

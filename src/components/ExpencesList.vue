@@ -19,9 +19,6 @@
     </ul>
     <ul v-for="expence in expencesArr" :key="expence.id">
       <li>{{ getAllExpences.indexOf(expence) + 1 }}</li>
-      <!-- <li>
-        {{ expence.date }}
-      </li> -->
       <li>
         {{ new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date)) }}
       </li>
