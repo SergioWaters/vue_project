@@ -1,28 +1,19 @@
-<template>
-  <div class="add">
-    <div>
+<template >
+  <v-container>
+    <v-card v-if="compIsVis" class="text-left pa-8 cols-5">
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
-      <div>
-        <input v-model="date" type="date" placeholder="Date" />
-        <input v-model="value" type="number" placeholder="Summ" />
-      </div>
-      <div>
-        <select v-model="category">
-          <option disabled>Choose an existing category</option>
-          <option v-for="option in this.getCategoryArr" :key="option">
-            {{ option }}
-          </option>
-        </select>
-        <span>OR</span>
-        <input
-          type="text"
-          placeholder="Create custom category"
-          v-model="customCategory"
-        />
-      </div>
-      <button @click="addExpence">save</button>
-    </div>
-  </div>
+      <v-text-field v-model="date" type="date" :label="date" />
+      <v-text-field v-model.number="value" />
+      <v-select v-model="category" :label="category" :items="getCategoryArr" />
+      <v-text-field v-model="customCategory" label="Create custom category" />
+      <v-btn v-if="!settings" color="teal" dark @click="addExpence"
+        >Add expence</v-btn
+      >
+      <v-btn v-if="action === 'edit'" color="teal" dark @click="addExpence"
+        >Save changes</v-btn
+      >
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -32,34 +23,40 @@ import { mapMutations } from "vuex";
 export default {
   name: "ExpenceAdd",
   props: {
-    cat: String,
-    customCat: String,
-    val: Number,
-    dat: String,
+    action: String,
+    settings: Object,
+    indx: Number,
   },
   data() {
     return {
+      compIsVis: true,
       alertVisible: false,
       date: "",
       category: "",
       customCategory: "",
+      id: null,
       value: null,
     };
   },
   methods: {
-    ...mapMutations(["updNewExpence"]),
+    ...mapMutations(["updNewExpence", "updEditExpence"]),
     addExpence() {
       this.alertVisible = false;
       this.category = this.customCategory || this.category;
       if (!this.category || !this.value) return (this.alertVisible = true);
 
       const expence = {
+        id: this.id,
         category: this.customCategory || this.category,
         date: this.date || this.getCurrentDate,
         value: this.value,
       };
 
-      this.updNewExpence(expence);
+      if (this.action === "edit") {
+        this.updEditExpence([this.indx, expence]);
+        this.compIsVis = false;
+      }
+      if (!this.settings) this.updNewExpence(expence);
     },
   },
   computed: {
@@ -73,10 +70,13 @@ export default {
     },
   },
   mounted() {
-    if (this.props) {
-      this.customCategory = this.customCat || this.cat;
-      this.value = this.val;
-      this.date = this.dat;
+    console.log(this.settings);
+    if (this.settings) {
+      const obj = this.settings;
+      this.category = obj.customCategory || obj.category;
+      this.value = obj.value;
+      this.date = obj.date;
+      this.id = obj.id;
     }
     if (this.$route.query.push) {
       console.log(this.$route);
@@ -94,14 +94,4 @@ export default {
 </script>
 
 <style scoped>
-input,
-select {
-  min-height: 20px;
-  min-width: 50px;
-  margin: 5px;
-  color: #222;
-}
-.add {
-  margin: 10px;
-}
 </style>

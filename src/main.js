@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App_.vue'
+import App from './App.vue'
 import store from './store'
 import router from './router/router'
 import modal from './plugins/Modal/modal'

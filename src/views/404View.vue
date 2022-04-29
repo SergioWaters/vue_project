@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container>
     <h1>This Page does not exist</h1>
-  </div>
+  </v-container>
 </template>
 <style scoped>
 h1 {

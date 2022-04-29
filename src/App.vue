@@ -1,23 +1,22 @@
 <template>
-  <div id="app">
-    <v-app>
-      <nav>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/AddExpence">Add</router-link> |
-        <router-link to="/about">About</router-link> |
-        <router-link to="/Calculator">Calculator</router-link>
-      </nav>
-      <main>
-        <transition name="fade">
-          <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
-        </transition>
-        <router-view />
-        <transition name="fade">
-          <ExpenceEdit />
-        </transition>
-      </main>
-    </v-app>
-  </div>
+  <v-app>
+    <v-app-bar app flat justify="center">
+      <v-container>
+        <v-btn plain :ripple="false" to="/">Home</v-btn>
+        <v-btn plain :ripple="false" to="/AddExpence">Add</v-btn>
+        <v-btn plain :ripple="false" to="/common">Common Expences</v-btn>
+        <v-btn plain :ripple="false" to="/about">About</v-btn>
+        <v-btn plain :ripple="false" to="/Calculator">Calculator</v-btn>
+        <v-btn plain :ripple="false" to="/HelloWorld">HelloWorld</v-btn>
+      </v-container>
+    </v-app-bar>
+    <v-main>
+      <router-view />
+      <transition name="fade">
+        <ModalWindow :name="name" :settings="{ settings }" v-if="name" />
+      </transition>
+    </v-main>
+  </v-app>
 </template>
 
 
@@ -28,7 +27,6 @@ export default {
   name: "App",
   components: {
     ModalWindow: () => import("./components/ModalWindow.vue"),
-    ExpenceEdit: () => import("./components/ExpenceEdit.vue"),
   },
   data() {
     return {
@@ -69,17 +67,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
-nav {
-  padding: 30px;
-}
-a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-a .router-link-exact-active {
+a .v-btn-exact-active {
   color: #42b983;
 }
 .fade-enter-active,

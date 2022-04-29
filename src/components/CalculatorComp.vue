@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <h1>{{ msg }}</h1>
     <hr />
     <div class="display">
@@ -64,7 +64,7 @@
         </label>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

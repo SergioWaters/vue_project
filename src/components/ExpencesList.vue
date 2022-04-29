@@ -1,78 +1,60 @@
 <template>
-  <div class="expences">
-    <ul>
-      <li>
-        <h3>#</h3>
-      </li>
-      <li>
-        <h3>Date</h3>
-      </li>
-      <li>
-        <h3>Category</h3>
-      </li>
-      <li>
-        <h3>Value</h3>
-      </li>
-      <li>
-        <h3>Edit</h3>
-      </li>
-    </ul>
-    <ul v-for="expence in expencesArr" :key="expence.id">
-      <li>{{ getAllExpences.indexOf(expence) + 1 }}</li>
-      <li>
-        {{ new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date)) }}
-      </li>
-      <li>{{ expence.category }}</li>
-      <li>{{ expence.value }}</li>
-      <li>
-        <button
-          @click="
-            $context.showContext([
-              getAllExpences.indexOf(expence),
-              expence,
-              $event.target,
-            ])
-          "
-        >
-          ...
-        </button>
-      </li>
-    </ul>
-  </div>
+  <v-container class="expences">
+    <v-row>
+      <v-col class="text-h5" :cols="1">#</v-col>
+      <v-col class="text-h5" :cols="4">Date</v-col>
+      <v-col class="text-h5" :cols="4">Category </v-col>
+      <v-col class="text-h5" :cols="3">Value </v-col>
+    </v-row>
+    <v-row v-for="expence in expencesArr" :key="expence.id">
+      <v-col :cols="1">{{ getIndex(expence) + 1 }}</v-col>
+      <v-col :cols="4">{{ getDate(expence.date) }}</v-col>
+      <v-col :cols="4">{{ expence.category }}</v-col>
+      <v-col :cols="2">{{ expence.value }}</v-col>
+      <v-col
+        :cols="1"
+        @click="$context.show([getIndex(expence), expence, $event.target])"
+      >
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-col>
+    </v-row>
+    <ExpenceEdit />
+  </v-container>
 </template>
 <script>
 import { mapGetters } from "vuex";
 
 export default {
   name: "ExpencesList",
-  props: {
-    expencesArr: [],
+  components: {
+    ExpenceEdit: () => import("./ContextMenu.vue"),
   },
-  computed: mapGetters(["getAllExpences"]),
+  data() {
+    return {
+      items: [{ title: "Edit", action: () => {} }, { title: "Delete" }],
+      index: null,
+    };
+  },
+  props: {
+    expencesArr: Array,
+  },
+  methods: {
+    getDate(date) {
+      return new Intl.DateTimeFormat("ru-RU").format(new Date(date));
+    },
+
+    getIndex(expence) {
+      return this.getAllExpences.indexOf(expence);
+    },
+  },
+  computed: {
+    ...mapGetters(["getAllExpences"]),
+  },
 };
 </script>
 
 <style scoped>
 .expences {
   min-height: 300px;
-}
-h3 {
-  margin: 40px 0 0 0;
-  text-align: center;
-  padding: 10px;
-  font-weight: 700;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
-li {
-  margin: 0 10px;
-  width: 200px;
-}
-li:first-child {
-  width: 30px;
 }
 </style>

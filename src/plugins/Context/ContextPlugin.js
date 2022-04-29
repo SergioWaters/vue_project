@@ -8,11 +8,11 @@ export default {
 
       EventBus: new Vue(),
 
-      showContext(indx, obj) {
+      show(indx, obj) {
         this.EventBus.$emit('show', indx, obj)
       },
 
-      hideContext() {
+      hide() {
         this.EventBus.$emit('hide')
       },
 

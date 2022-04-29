@@ -1,17 +1,29 @@
 <template>
-  <div class="edit-menu" v-if="obj" :style="styles">
-    <div class="buttons" v-if="!isVisForm">
-      <button @click="isVisForm = !isVisForm">Edit</button>
-      <button @click="deleteItem()">Delete</button>
-    </div>
-    <div class="form" v-if="isVisForm">
-      <input type="text" v-model="obj.category" :placeholder="obj.category" />
-      <input type="number" v-model="obj.value" :placeholder="obj.value" />
-      <input type="date" v-model="obj.date" :placeholder="obj.date" />
-      <button @click="saveChanges()">Save</button>
-    </div>
-    <button class="closer" @click="onContextHide()">X</button>
-  </div>
+  <!-- <v-menu offset-y>
+    <template v-slot:activator="{ on, attrs }">
+      <v-icon v-bind="attrs" v-on="on">mdi-dots-vertical</v-icon>
+    </template>
+    <v-list>
+      <v-list-item v-for="(item, index) in items" :key="index">
+        <v-list-item-title @click="handler(item)">{{
+          item.title
+        }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu> -->
+
+  <v-list class="edit-menu" v-if="isShown" :style="styles">
+    <v-btn @click="deleteItem">Delete</v-btn>
+    <v-dialog v-model="dialog">
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on"> Edit </v-btn>
+      </template>
+      <v-card>
+        <ExpenceAdd :settings="obj" action="edit" :indx="indx" />
+      </v-card>
+    </v-dialog>
+    <button class="closer" @click="onContextHide">X</button>
+  </v-list>
 </template>
 
 <script>
@@ -19,10 +31,18 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "ExpenceEdit",
+  components: {
+    ExpenceAdd: () => import("@/components/ExpenceAdd.vue"),
+  },
+  props: {
+    arr: Array,
+  },
   data() {
     return {
-      isVisForm: false,
-      obj: null,
+      items: [],
+      dialog: false,
+      isShown: false,
+      obj: {},
       indx: null,
       xPos: 0,
       yPos: 0,
@@ -30,34 +50,28 @@ export default {
   },
   methods: {
     ...mapMutations(["updEditExpence"]),
+    handler(item) {
+      item.action();
+    },
     deleteItem() {
       this.updEditExpence([this.index]);
       this.onContextHide();
     },
-    saveChanges() {
-      const newObj = {
-        category: this.obj.category,
-        id: this.obj.id,
-        date: this.obj.date,
-        value: this.obj.value,
-      };
-      this.updEditExpence([this.indx, newObj]);
-      this.onContextHide();
-      this.isVisForm = false;
-    },
+
     onContextShow([indx, obj, caller]) {
       this.setPositon(caller);
+      this.isShown = true;
+      console.log("obj from contextShow expEdit");
+      console.log(obj);
       this.indx = indx;
       if (obj) this.obj = obj;
+      // this.items = obj.items;
     },
     onContextHide() {
-      this.obj = null;
-      this.isVisForm = false;
+      this.isShown = false;
     },
     setPositon(caller) {
       const pos = caller.getBoundingClientRect();
-      console.log(pos);
-
       this.xPos = pos.right;
       this.yPos = pos.top;
     },

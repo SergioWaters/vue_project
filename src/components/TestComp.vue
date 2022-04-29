@@ -1,5 +1,5 @@
 <template>
-  <div>The message is: {{ msg }}</div>
+  <v-container>The message is: {{ msg }}</v-container>
 </template>
 <script>
 export default {

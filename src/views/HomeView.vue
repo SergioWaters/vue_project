@@ -1,34 +1,33 @@
 <template>
-  <div>
-    <div class="common_expences">
-      <h3>Popular Categories</h3>
-      <input placeholder="Put amount" v-model.number="amount" />
-      <router-link
-        v-for="item in getCategoryArr"
-        :key="item"
-        :to="`/addExpence/${item}?value=${amount}&push=true`"
-      >
-        {{ item }}
-      </router-link>
-      <button
-        @click="
-          $modal.show('addExpence', {
-            title: 'Add your new expence',
-            component: 'addExpence',
-          })
-        "
-      >
-        Add New Expence
-      </button>
-    </div>
-    <ExpencesList :expencesArr="getExpencesSlice" />
-    <ExpencesPagination
-      @clickHandler="updateFocusPage"
-      :pages="getAllExpences.length"
-      :focus="getFocusPage"
-      :stack="getStackOfPages"
-    />
-  </div>
+  <v-container>
+    <v-row class="sm-col-4 col-12">
+      <v-col>
+        <div class="text-h5 text-sm-h3 text-left mb-8">
+          My personal expences
+        </div>
+
+        <v-dialog v-model="dialog">
+          <template v-slot:activator="{ on }">
+            <v-btn color="teal" dark v-on="on">
+              Add New Expence <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <ExpenceAdd />
+          </v-card>
+        </v-dialog>
+
+        <ExpencesList :expencesArr="getExpencesSlice" />
+        <ExpencesPagination
+          @clickHandler="updateFocusPage"
+          :pages="getAllExpences.length"
+          :focus="getFocusPage"
+          :stack="getStackOfPages"
+        />
+      </v-col>
+      <v-col>dia</v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -42,10 +41,11 @@ export default {
   components: {
     ExpencesList,
     ExpencesPagination,
+    ExpenceAdd: () => import("@/components/ExpenceAdd.vue"),
   },
   data() {
     return {
-      amount: null,
+      dialog: false,
     };
   },
   methods: {
@@ -73,25 +73,7 @@ div {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 10px;
-}
-.common_expences {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.common_expences a {
-  margin: 10px;
-  text-decoration: none;
-}
-.common_expences input {
-  max-width: 300px;
-}
-button {
-  margin: 20px;
 }
 </style>
 

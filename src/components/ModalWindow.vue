@@ -1,11 +1,11 @@
 <template>
-  <div :class="name">
+  <v-container :class="name">
     <div>{{ settings.title }}</div>
     <transition fade>
       <ExpenceAdd v-if="name === 'addExpence'" />
     </transition>
     <button @click="$modal.hide()">X</button>
-  </div>
+  </v-container>
 </template>
 
 <script>

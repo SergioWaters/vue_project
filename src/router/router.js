@@ -10,6 +10,11 @@ const routes = [
     component: () => import('../views/HomeView.vue')
   },
   {
+    path: '/common',
+    name: 'commonView',
+    component: () => import('../views/CommonExpences.vue'),
+  },
+  {
     path: '/addExpence',
     name: 'addExpenceComponent',
     component: () => import('../components/ExpenceAdd.vue'),
@@ -28,6 +33,11 @@ const routes = [
     path: '/calculator',
     name: 'calculator',
     component: () => import('../views/CalculatorView.vue'),
+  },
+  {
+    path: '/HelloWorld',
+    name: 'HelloWorld',
+    component: () => import('../components/HelloWorld.vue')
   },
   {
     path: '*',
