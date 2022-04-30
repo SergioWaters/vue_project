@@ -2,10 +2,17 @@
   <v-container>
     <v-card v-if="compIsVis" class="text-left pa-8 cols-5">
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
-      <v-text-field v-model="date" type="date" :label="date" />
-      <v-text-field v-model.number="value" />
-      <v-select v-model="category" :label="category" :items="getCategoryArr" />
-      <v-text-field v-model="customCategory" label="Create custom category" />
+      <v-text-field v-model="date" type="date" label="Choose Date" />
+      <v-text-field v-model.number="value" label="Put amount" />
+      <v-select
+        v-model="category"
+        label="Choose Category"
+        :items="getCategoryArr"
+      />
+      <v-text-field
+        v-model="customCategory"
+        label="Or create a custom category"
+      />
       <v-btn v-if="!settings" color="teal" dark @click="addExpence"
         >Add expence</v-btn
       >

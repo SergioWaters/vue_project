@@ -5,6 +5,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/ViewtyBoard',
+    name: 'ViewtyBoard',
+    component: () => import('../views/VuetifyDashView.vue')
+  },
+  {
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue')

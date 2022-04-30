@@ -5,7 +5,6 @@
       :length="numberOfButtons"
       plain
       color="teal"
-      @click="handler()"
     ></v-pagination>
   </div>
   <!-- <div>
@@ -27,29 +26,29 @@ export default {
   },
   data() {
     return {
-      page: null,
+      page: 1,
     };
   },
   methods: {
     ...mapMutations(["updateFocusPage"]),
-    handler() {
-      console.log("handler");
+    changePage() {
+      this.updateFocusPage(this.page);
     },
-    next(ctx) {
-      console.log("from next", ctx);
-      // this.page += 1;
-      // if (this.page < 1 || this.page > this.numberOfButtons) return;
-      // this.updateFocusPage(this.page);
-      // this.$emit("clickHandler", this.page);
-    },
+    // handler() {
+    //   console.log("handler");
+    // },
+    // clickHandler(ctx) {
+    //   console.log("from next", ctx);
+    //   // this.page += 1;
+    //   // if (this.page < 1 || this.page > this.numberOfButtons) return;
+    //   // this.updateFocusPage(this.page);
+    //   // this.$emit("clickHandler", this.page);
+    // },
   },
   computed: {
     numberOfButtons() {
       return Math.ceil(this.pages / this.stack);
     },
-  },
-  onChange() {
-    console.log(this.page);
   },
 };
 </script>

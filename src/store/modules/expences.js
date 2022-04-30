@@ -38,6 +38,7 @@ export default {
     updateExpences(state, arr) {
       arr.forEach(element => {
         if (!element.id) element.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
+        element.date = new Intl.DateTimeFormat("ru-RU").format(new Date(element.date));
       });
       state.expencesArr = arr
     },
