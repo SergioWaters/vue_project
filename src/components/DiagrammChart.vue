@@ -21,8 +21,8 @@ export default {
     options: Object,
     chartColors: Array,
     label: String,
-    width: { type: Number, default: 300 },
-    height: { type: Number, default: 300 },
+    width: { type: Number, default: 200 },
+    height: { type: Number, default: 200 },
   },
   computed: {
     ...mapGetters([
@@ -51,8 +51,6 @@ export default {
         },
       ],
     };
-    console.log("diagramm mounted");
-    console.log(this.props);
     this.renderChart(chartData, this.options);
   },
 };

@@ -37,16 +37,16 @@
           </template>
         </v-data-table>
 
-        <div class="text-center pt-2">
+        <v-container class="text-center pt-2 b-black">
           <v-pagination
             v-model="page"
             :length="pageCount"
             color="teal"
           ></v-pagination>
-        </div>
+        </v-container>
       </v-col>
-      <v-col
-        >dia
+      <v-col>
+        <div class="text-h6 text-center mb-8">Expences by Category</div>
 
         <DiagrammChart
           :chartData="chartDataMut"
@@ -73,16 +73,7 @@ export default {
   },
   data() {
     return {
-      chartData: {
-        labels: [],
-        datasets: [
-          {
-            backgroundColor: [],
-            data: [],
-          },
-        ],
-      },
-      chartOptions: { hoverOffset: 4 },
+      chartOptions: { hoverOffset: 4, width: 100, height: 100 },
       dialog: false,
       page: 1,
       pageCount: 0,
@@ -94,8 +85,6 @@ export default {
         { text: "value", value: "value" },
         { text: " ", value: "actions", sortable: false },
       ],
-      chartColors: [],
-      chartPercents: [],
     };
   },
   methods: {
@@ -105,16 +94,15 @@ export default {
       "updateStackOfPages",
       "addNewExpence",
     ]),
+    // setUp() {
+    //   this.getAllCategories.forEach((item) => {
+    //     let dataItem = (item.count / this.getAllExpences.length) * 100;
 
-    setUp() {
-      this.getAllCategories.forEach((item) => {
-        let dataItem = (item.count / this.getAllExpences.length) * 100;
-
-        this.chartData.labels.push(item.category);
-        this.chartData.datasets[0].backgroundColor.push(randomColor());
-        this.chartData.datasets[0].data.push(dataItem);
-      });
-    },
+    //     this.chartData.labels.push(item.category);
+    //     this.chartData.datasets[0].backgroundColor.push(randomColor());
+    //     this.chartData.datasets[0].data.push(dataItem);
+    //   });
+    // },
   },
   computed: {
     ...mapGetters([
@@ -160,10 +148,7 @@ export default {
       return items;
     },
   },
-  async mounted() {
-    console.log(this.getPercentage);
-    await this.setUp();
-  },
+  async mounted() {},
 };
 </script>
 
