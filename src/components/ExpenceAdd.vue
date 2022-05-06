@@ -1,7 +1,7 @@
 <template >
   <v-container max-width="500px">
-    <v-card v-if="compIsVis" class="text-left pa-8 cols-5">
-      <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
+    <v-card class="text-left pa-8 cols-5">
+      <h3 v-if="message">{{ message }}</h3>
       <v-text-field v-model="date" type="date" label="Choose Date" />
       <v-text-field v-model.number="value" label="Put amount" />
       <v-select
@@ -36,8 +36,7 @@ export default {
   },
   data() {
     return {
-      compIsVis: true,
-      alertVisible: false,
+      message: "",
       date: "",
       category: "",
       customCategory: "",
@@ -48,9 +47,11 @@ export default {
   methods: {
     ...mapMutations(["updNewExpence", "updEditExpence"]),
     addExpence() {
-      this.alertVisible = false;
+      this.message = "";
       this.category = this.customCategory || this.category;
-      if (!this.category || !this.value) return (this.alertVisible = true);
+      if (!this.category)
+        return (this.message = "Choose category, or create one");
+      if (!this.value) return (this.message = "Put expence's value");
 
       const expence = {
         id: this.id,
@@ -61,9 +62,9 @@ export default {
 
       if (this.action === "edit") {
         this.updEditExpence([this.indx, expence]);
-        this.compIsVis = false;
       }
       if (!this.settings) this.updNewExpence(expence);
+      this.message = `Your added ${this.value} to ${expence.category} category`;
     },
   },
   computed: {
@@ -77,8 +78,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.props);
-    console.log(this.settings);
     if (this.settings) {
       const obj = this.settings;
       this.category = obj.customCategory || obj.category;

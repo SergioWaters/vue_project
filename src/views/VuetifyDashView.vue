@@ -19,6 +19,8 @@
         </v-dialog>
 
         <v-data-table
+          height="80vh"
+          calculate-widths
           :headers="headers"
           :items="addNumber"
           :page.sync="page"
@@ -27,7 +29,7 @@
           class="elevation-1 text-h5 text-sm-h3 text-left"
           @page-count="pageCount = $event"
         >
-          <template v-slot:item.actions="{ item }" cols-1>
+          <template v-slot:item.actions="{ item }">
             <v-icon
               small
               @click="$context.show([item.number - 1, item, $event.target])"
@@ -37,13 +39,13 @@
           </template>
         </v-data-table>
 
-        <v-container class="text-center pt-2 b-black">
+        <v-card class="text-center p-2 mt-2">
           <v-pagination
             v-model="page"
             :length="pageCount"
             color="teal"
           ></v-pagination>
-        </v-container>
+        </v-card>
       </v-col>
       <v-col>
         <div class="text-h6 text-center mb-8">Expences by Category</div>
@@ -94,15 +96,6 @@ export default {
       "updateStackOfPages",
       "addNewExpence",
     ]),
-    // setUp() {
-    //   this.getAllCategories.forEach((item) => {
-    //     let dataItem = (item.count / this.getAllExpences.length) * 100;
-
-    //     this.chartData.labels.push(item.category);
-    //     this.chartData.datasets[0].backgroundColor.push(randomColor());
-    //     this.chartData.datasets[0].data.push(dataItem);
-    //   });
-    // },
   },
   computed: {
     ...mapGetters([
@@ -112,6 +105,7 @@ export default {
       "getFocusPage",
       "getCategoryArr",
       "getAllCategories",
+      "getTotal",
     ]),
     getColorsArr() {
       const colors = [];
@@ -122,8 +116,9 @@ export default {
       return colors;
     },
     getPercentsArr() {
+      const total = this.getTotal;
       return this.getAllCategories.map((item) => {
-        return Math.round((item.count / this.getAllExpences.length) * 100);
+        return Math.round((item.value / total) * 100);
       });
     },
     chartDataMut() {

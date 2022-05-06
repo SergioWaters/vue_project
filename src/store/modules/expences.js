@@ -37,20 +37,29 @@ export default {
       return categoryArr
     },
     getAllCategories(state) {
-      const arrRes = [];
+      const resultArr = [];
       state.expencesArr.forEach((item) => {
-        let newItem = { category: item.category, count: 1 };
-        const find = arrRes.findIndex(
+        let newItem = { category: item.category, count: 1, value: item.value };
+        const find = resultArr.findIndex(
           (item) => item.category === newItem.category
         );
-        (find < 0) ? arrRes.push(newItem) : arrRes[find].count++;
+        if (find < 0) {
+          resultArr.push(newItem)
+        } else {
+          resultArr[find].count++;
+          resultArr[find].value += +item.value;
+        }
       });
-      return arrRes;
+      return resultArr;
+    },
+    getTotal(state) {
+      return state.expencesArr.reduce((res, cur) => res + Number(cur.value), 0)
     },
   },
   mutations: {
     updateExpences(state, arr) {
       arr.forEach(element => {
+        element.category = element.category.charAt(0).toUpperCase() + element.category.slice(1)
         if (!element.id) element.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
         element.date = new Intl.DateTimeFormat("ru-RU").format(new Date(element.date));
       });
@@ -63,13 +72,15 @@ export default {
       state.stackOfPages = stackOfPages
     },
     updNewExpence(state, expence) {
+      expence.category = expence.category.charAt(0).toUpperCase() + expence.category.slice(1)
       if (!expence.id) expence.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
       expence.date = new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date))
       state.expencesArr.unshift(expence);
     },
     updEditExpence(state, [indx, item]) {
       item ? state.expencesArr.splice(+indx, 1, item) : state.expencesArr.splice(+indx, 1)
-    }
+    },
+
   },
   actions: {
     fetchData(ctx) {
