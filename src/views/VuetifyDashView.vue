@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- eslint-disable  -->
     <v-row class="sm-col-4 col-12">
       <v-col>
         <div class="text-h5 text-sm-h3 text-left mb-8">
@@ -19,13 +20,23 @@
 
         <v-data-table
           :headers="headers"
-          :items="getAllExpences"
+          :items="addNumber"
           :page.sync="page"
           :items-per-page="itemsPerPage"
           hide-default-footer
-          class="elevation-1 text-h6 text-sm-h3 text-left"
+          class="elevation-1 text-h5 text-sm-h3 text-left"
           @page-count="pageCount = $event"
-        ></v-data-table>
+        >
+          <template v-slot:item.actions="{ item }" cols-1>
+            <v-icon
+              small
+              @click="$context.show([item.number - 1, item, $event.target])"
+            >
+              mdi-dots-vertical
+            </v-icon>
+          </template>
+        </v-data-table>
+
         <div class="text-center pt-2">
           <v-pagination
             v-model="page"
@@ -34,36 +45,57 @@
           ></v-pagination>
         </div>
       </v-col>
-      <v-col>dia</v-col>
+      <v-col
+        >dia
+
+        <DiagrammChart
+          :chartData="chartDataMut"
+          :options="chartOptions"
+          label="Expences"
+        />
+      </v-col>
     </v-row>
+    <ExpenceEdit />
   </v-container>
 </template>
 
 <script>
+import randomColor from "randomcolor";
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
-// import ExpencesList from "../components/ExpencesList.vue";
-// import ExpencesPagination from "../components/ExpencesPagination.vue";
 
 export default {
   name: "HomeView",
   components: {
-    // ExpencesList,
-    // ExpencesPagination,
+    DiagrammChart: () => import("@/components/DiagrammChart.vue"),
+    ExpenceEdit: () => import("@/components/ContextMenu.vue"),
     ExpenceAdd: () => import("@/components/ExpenceAdd.vue"),
   },
   data() {
     return {
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: [],
+            data: [],
+          },
+        ],
+      },
+      chartOptions: { hoverOffset: 4 },
       dialog: false,
       page: 1,
-      pageCount: 10,
+      pageCount: 0,
       itemsPerPage: 10,
       headers: [
+        { text: "#", value: "number", align: "start", sortable: true },
+        { text: "date", value: "date" },
         { text: "category", value: "category" },
-        { text: "date", align: "start", sortable: false, value: "date" },
-        { text: "id", value: "id" },
         { text: "value", value: "value" },
+        { text: " ", value: "actions", sortable: false },
       ],
+      chartColors: [],
+      chartPercents: [],
     };
   },
   methods: {
@@ -73,6 +105,16 @@ export default {
       "updateStackOfPages",
       "addNewExpence",
     ]),
+
+    setUp() {
+      this.getAllCategories.forEach((item) => {
+        let dataItem = (item.count / this.getAllExpences.length) * 100;
+
+        this.chartData.labels.push(item.category);
+        this.chartData.datasets[0].backgroundColor.push(randomColor());
+        this.chartData.datasets[0].data.push(dataItem);
+      });
+    },
   },
   computed: {
     ...mapGetters([
@@ -81,12 +123,47 @@ export default {
       "getStackOfPages",
       "getFocusPage",
       "getCategoryArr",
+      "getAllCategories",
     ]),
+    getColorsArr() {
+      const colors = [];
+      let count = this.getCategoryArr.length;
+      for (let i = 0; i < count; i++) {
+        colors.push(randomColor());
+      }
+      return colors;
+    },
+    getPercentsArr() {
+      return this.getAllCategories.map((item) => {
+        return Math.round((item.count / this.getAllExpences.length) * 100);
+      });
+    },
+    chartDataMut() {
+      return {
+        labels: this.getCategoryArr,
+        datasets: [
+          {
+            backgroundColor: this.getColorsArr,
+            data: this.getPercentsArr,
+          },
+        ],
+      };
+    },
     numberOfButtons() {
       return Math.ceil(this.getAllExpences.length / this.getStackOfPages);
     },
+    addNumber() {
+      const items = this.getAllExpences;
+      items.forEach((expence, indx) => {
+        expence.number = +indx + 1;
+      });
+      return items;
+    },
   },
-  mounted() {},
+  async mounted() {
+    console.log(this.getPercentage);
+    await this.setUp();
+  },
 };
 </script>
 

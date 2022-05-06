@@ -1,5 +1,5 @@
 <template >
-  <v-container>
+  <v-container max-width="500px">
     <v-card v-if="compIsVis" class="text-left pa-8 cols-5">
       <h3 v-if="alertVisible">All of thoose lines should be filled</h3>
       <v-text-field v-model="date" type="date" label="Choose Date" />
@@ -77,6 +77,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.props);
     console.log(this.settings);
     if (this.settings) {
       const obj = this.settings;

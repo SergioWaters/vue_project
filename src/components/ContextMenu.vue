@@ -12,18 +12,18 @@
     </v-list>
   </v-menu> -->
 
-  <v-list class="edit-menu" v-if="isShown" :style="styles">
+  <v-toolbar flat class="edit-menu" v-if="isShown" :style="styles">
     <v-btn @click="deleteItem">Delete</v-btn>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" max-width="500px">
       <template v-slot:activator="{ on }">
         <v-btn v-on="on"> Edit </v-btn>
       </template>
-      <v-card>
+      <v-card class="justify-self-center">
         <ExpenceAdd :settings="obj" action="edit" :indx="indx" />
       </v-card>
     </v-dialog>
     <button class="closer" @click="onContextHide">X</button>
-  </v-list>
+  </v-toolbar>
 </template>
 
 <script>
@@ -59,11 +59,9 @@ export default {
     },
 
     onContextShow([indx, obj, caller]) {
-      this.setPositon(caller);
       this.isShown = true;
-      console.log("obj from contextShow expEdit");
-      console.log(obj);
       this.indx = indx;
+      if (caller) this.setPositon(caller);
       if (obj) this.obj = obj;
       // this.items = obj.items;
     },
@@ -102,7 +100,6 @@ export default {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #222;
 }
 .form {
   display: flex;

@@ -29,10 +29,24 @@ export default {
       //   map: {},
       //   categoryArr: []
       // }).categoryArr;
+      // function handle(item){
+
+      // }
       let categoryArr = [...new Set(state.expencesArr.map((item) => item.category))];
 
       return categoryArr
-    }
+    },
+    getAllCategories(state) {
+      const arrRes = [];
+      state.expencesArr.forEach((item) => {
+        let newItem = { category: item.category, count: 1 };
+        const find = arrRes.findIndex(
+          (item) => item.category === newItem.category
+        );
+        (find < 0) ? arrRes.push(newItem) : arrRes[find].count++;
+      });
+      return arrRes;
+    },
   },
   mutations: {
     updateExpences(state, arr) {
@@ -50,6 +64,7 @@ export default {
     },
     updNewExpence(state, expence) {
       if (!expence.id) expence.id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
+      expence.date = new Intl.DateTimeFormat("ru-RU").format(new Date(expence.date))
       state.expencesArr.unshift(expence);
     },
     updEditExpence(state, [indx, item]) {

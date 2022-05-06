@@ -11,8 +11,28 @@ const routes = [
   },
   {
     path: '/',
+    name: 'ViewtyBoardHome',
+    component: () => import('../views/VuetifyDashView.vue')
+  },
+  {
+    path: '/home',
     name: 'home',
     component: () => import('../views/HomeView.vue')
+  },
+  {
+    path: '/diagramm',
+    name: 'diagramm',
+    component: () => import('../components/DiagrammChart.vue')
+  },
+  {
+    path: '/chartExample',
+    name: 'chartExample',
+    component: () => import('../components/DoughnutExample.vue')
+  },
+  {
+    path: '/default',
+    name: 'default',
+    component: () => import('../components/FckngTable.vue')
   },
   {
     path: '/common',
@@ -38,11 +58,6 @@ const routes = [
     path: '/calculator',
     name: 'calculator',
     component: () => import('../views/CalculatorView.vue'),
-  },
-  {
-    path: '/HelloWorld',
-    name: 'HelloWorld',
-    component: () => import('../components/HelloWorld.vue')
   },
   {
     path: '*',

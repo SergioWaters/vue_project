@@ -2,13 +2,12 @@
   <v-app>
     <v-app-bar app flat justify="center">
       <v-container>
-        <v-btn plain :ripple="false" to="/">Home</v-btn>
-        <v-btn plain :ripple="false" to="/ViewtyBoard">ViewtyBoard</v-btn>
+        <!-- <v-btn plain :ripple="false" to="/">Home</v-btn> -->
+        <v-btn plain :ripple="false" to="/">VuetifyBoard</v-btn>
         <v-btn plain :ripple="false" to="/AddExpence">Add</v-btn>
         <v-btn plain :ripple="false" to="/common">Common Expences</v-btn>
         <v-btn plain :ripple="false" to="/about">About</v-btn>
         <v-btn plain :ripple="false" to="/Calculator">Calculator</v-btn>
-        <v-btn plain :ripple="false" to="/HelloWorld">HelloWorld</v-btn>
       </v-container>
     </v-app-bar>
     <v-main>

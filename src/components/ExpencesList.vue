@@ -8,7 +8,7 @@
     </v-row>
     <v-row v-for="expence in expencesArr" :key="expence.id">
       <v-col :cols="1">{{ getIndex(expence) + 1 }}</v-col>
-      <v-col :cols="4">{{ getDate(expence.date) }}</v-col>
+      <v-col :cols="4">{{ expence.date }}</v-col>
       <v-col :cols="4">{{ expence.category }}</v-col>
       <v-col :cols="2">{{ expence.value }}</v-col>
       <v-col
